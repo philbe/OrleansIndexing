@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DiagnosticsConfiguration xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
+  <PublicConfig xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
+    <WadCfg>
+      <DiagnosticMonitorConfiguration overallQuotaInMB="4096" sinks="applicationInsights.errors">
+        <DiagnosticInfrastructureLogs scheduledTransferLogLevelFilter="Error" />
+        <Directories scheduledTransferPeriod="PT1M">
+          <IISLogs containerName="wad-iis-logfiles" />
+          <FailedRequestLogs containerName="wad-failedrequestlogs" />
+        </Directories>
+        <PerformanceCounters scheduledTransferPeriod="PT1M">
+          <PerformanceCounterConfiguration counterSpecifier="\Processor(_Total)\% Processor Time" sampleRate="PT3M" />
+          <PerformanceCounterConfiguration counterSpecifier="\Memory\Available MBytes" sampleRate="PT3M" />
+          <PerformanceCounterConfiguration counterSpecifier="\.NET CLR LocksAndThreads(_Global_)\Contention Rate / sec" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\.NET CLR Memory(_Global_)\# Bytes in all Heaps" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\.NET CLR Memory(_Global_)\% Time in GC" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\.NET CLR Networking(_Global_)\Connections Established" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\.NET CLR Remoting(_Global_)\Remote Calls/sec" sampleRate="PT0S" />
+        </PerformanceCounters>
+        <WindowsEventLog scheduledTransferPeriod="PT1M">
+          <DataSource name="Application!*" />
+        </WindowsEventLog>
+        <CrashDumps dumpType="Full">
+          <CrashDumpConfiguration processName="WaAppAgent.exe" />
+          <CrashDumpConfiguration processName="WaIISHost.exe" />
+          <CrashDumpConfiguration processName="WindowsAzureGuestAgent.exe" />
+          <CrashDumpConfiguration processName="WaWorkerHost.exe" />
+          <CrashDumpConfiguration processName="DiagnosticsAgent.exe" />
+          <CrashDumpConfiguration processName="w3wp.exe" />
+        </CrashDumps>
+        <Logs scheduledTransferPeriod="PT1M" />
+      </DiagnosticMonitorConfiguration>
+      <SinksConfig>
+        <Sink name="applicationInsights">
+          <ApplicationInsights />
+          <Channels>
+            <Channel logLevel="Error" name="errors" />
+          </Channels>
+        </Sink>
+      </SinksConfig>
+    </WadCfg>
+    <StorageAccount />
+  </PublicConfig>
+  <PrivateConfig xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
+    <StorageAccount endpoint="" />
+  </PrivateConfig>
+  <IsEnabled>true</IsEnabled>
+</DiagnosticsConfiguration>

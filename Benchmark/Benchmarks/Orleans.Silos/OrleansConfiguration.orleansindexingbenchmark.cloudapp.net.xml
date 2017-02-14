@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<OrleansConfiguration xmlns="urn:orleans">
+  <Globals>
+    <Liveness LivenessType="AzureTable" />
+    <StorageProviders>
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="Default" />
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="MemoryStore" />
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="IndexingStorageProvider" />
+      <Provider Type="Orleans.Storage.AzureTableStorage" Name="BenchmarkStore" DataConnectionString="DefaultEndpointsProtocol=https;AccountName=orleansindexingwestgrain;AccountKey=RMNYPrMVpevClbHfIyV+Vc4fzFzzAZ29o9InEVwo8/TJXc7WNBRKiv6hnRBPAcGmuilf1uDnQ5SXHZADS5f+tg==" />
+      <Provider Type="Orleans.StorageProvider.DocumentDB.DocumentDBStorageProvider" Name="DocumentDBStore" Url="https://TESTURL.documents.azure.com:443/" Key="TEST_KEY" Database="TEST_DB" OfferTypeVersion="V1" OfferType="S3" />
+    </StorageProviders>
+  </Globals>
+  <Defaults>
+    <Tracing DefaultTraceLevel="Info" TraceToConsole="false" TraceToFile="{0}-{1}.log" PropagateActivityId="false" WriteMessagingTraces="false" BulkMessageLimit="1000">
+      <!--
+      <TraceLevelOverride LogPrefix="Runtime.MembershipOracle" TraceLevel="Verbose" />
+      -->
+    </Tracing>
+    <Telemetry>
+      <TelemetryConsumer Type="Orleans.TelemetryConsumers.AI.AITelemetryConsumer" Assembly="OrleansTelemetryConsumers.AI"/>
+    </Telemetry>
+  </Defaults>
+</OrleansConfiguration>

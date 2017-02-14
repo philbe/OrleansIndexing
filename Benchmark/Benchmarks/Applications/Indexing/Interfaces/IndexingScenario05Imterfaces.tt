@@ -1,0 +1,164 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Configuration" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Configuration" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #> 
+<#@ output extension=".cs" #>
+<#
+        var host = (IServiceProvider)Host;
+        var env = (EnvDTE.DTE)host.GetService(typeof(EnvDTE.DTE));
+        var project = (EnvDTE.Project)((Array)env.ActiveSolutionProjects).GetValue(0);
+        var configFilePath = System.IO.Path.Combine(System.IO.Directory.GetParent(env.Solution.FileName).FullName,"Benchmarks\\Applications\\Indexing\\Benchmark\\app.config");
+		//foreach (EnvDTE.ProjectItem item in project.ProjectItems)
+        //{
+        //    if (Regex.IsMatch(item.Name, "(app|web).config", RegexOptions.IgnoreCase))
+        //        configFilePath = item.get_FileNames(0);
+        //}
+
+        var configFile = new ExeConfigurationFileMap();
+        configFile.ExeConfigFilename = configFilePath;
+        var config = ConfigurationManager.OpenMappedExeConfiguration(
+            configFile, ConfigurationUserLevel.None);
+
+			System.Configuration.AppSettingsSection appSettings =
+                (System.Configuration.AppSettingsSection)config.GetSection("appSettings");
+
+		int N = int.Parse(appSettings.Settings["NumberOfGrainTypesInScenario5"].Value);
+#>
+
+using System.Threading.Tasks;
+using Orleans;
+using Orleans.Indexing;
+using System;
+
+namespace Orleans.Benchmarks.Indexing.Scenario05
+{
+
+    // ------------------------------------------------------------------------
+    // --- General Player Grain Interface -------------------------------------
+    // ------------------------------------------------------------------------
+
+    #region General Player Grain Interface
+    public interface PlayerProperties
+    {
+        int Score { get; set; }
+
+        string Location { get; set; }
+    }
+
+    public interface PlayerState : PlayerProperties
+    {
+        string Email { get; set; }
+    }
+
+    public interface IPlayerInterface
+    {
+        Task<string> GetEmail();
+        Task<string> GetLocation();
+        Task<int> GetScore();
+
+        Task<bool> SetEmail(string email);
+        Task<string> SetLocation(string location);
+        Task<bool> SetScore(int score);
+
+        Task LogSilo(string mode);
+    }
+	<# for(int i = 1 ; i <= N; ++i) { #>
+    public interface IPlayerGrain<#= i #> : IPlayerInterface, IGrainWithIntegerKey
+    {
+    }
+	<# } #>
+    #endregion
+
+    // ------------------------------------------------------------------------
+    // --- Player Grain Interface with 1 A-index ------------------------------
+    // ------------------------------------------------------------------------
+
+    #region Player Grain Interface with 1 A-index
+    [Serializable]
+    public class IndexedPlayerAIndexProperties
+    {
+        public int Score { get; set; }
+
+        [Index]
+        public string Location { get; set; }
+    }
+	
+	<# for(int i = 1 ; i <= N; ++i) { #>
+    public interface IIndexedPlayerAIndexGrain<#= i #> : IPlayerInterface, IGrainWithIntegerKey, IIndexableGrain<IndexedPlayerAIndexProperties>
+    {
+    }
+	<# } #>
+    #endregion
+
+    // ------------------------------------------------------------------------
+    // --- Player Grain Interface with 1 I-index ------------------------------
+    // ------------------------------------------------------------------------
+
+    #region Player Grain Interface with 1 I-index
+	<# for(int i = 1 ; i <= N; ++i) { #>
+    [Serializable]
+    public class IndexedPlayerIIndexProperties<#= i #>
+    {
+        public int Score { get; set; }
+
+        [Index(typeof(IHashIndexSingleBucket<string, IIndexedPlayerIIndexGrain<#= i #>>))]
+        public string Location { get; set; }
+    }
+	<# } #>
+	
+	<# for(int i = 1 ; i <= N; ++i) { #>
+    public interface IIndexedPlayerIIndexGrain<#= i #> : IPlayerInterface, IGrainWithIntegerKey, IIndexableGrain<IndexedPlayerIIndexProperties<#= i #>>
+    {
+    }
+	<# } #>
+    #endregion
+
+    // ------------------------------------------------------------------------
+    // --- Player Grain Interface with 1 Fault Tolerant I-index ------------------------------
+    // ------------------------------------------------------------------------
+
+    #region Player Grain Interface with 1 Fault Tolerant I-index
+	<# for(int i = 1 ; i <= N; ++i) { #>
+    [Serializable]
+    public class IndexedPlayerFTIIndexProperties<#= i #>
+    {
+        public int Score { get; set; }
+
+        [Index(typeof(IHashIndexSingleBucket<string, IIndexedPlayerFTIIndexGrain<#= i #>>))]
+        public string Location { get; set; }
+    }
+	<# } #>
+	
+	<# for(int i = 1 ; i <= N; ++i) { #>
+    public interface IIndexedPlayerFTIIndexGrain<#= i #> : IPlayerInterface, IGrainWithIntegerKey, IIndexableGrain<IndexedPlayerFTIIndexProperties<#= i #>>
+    {
+    }
+	<# } #>
+    #endregion
+
+    // ------------------------------------------------------------------------
+    // --- Player Grain Interface with 1 DSM-index ------------------------------
+    // ------------------------------------------------------------------------
+
+    #region Player Grain Interface with 1 DSM-index
+    [Serializable]
+    public class IndexedPlayerDSMIndexProperties
+    {
+        public int Score { get; set; }
+
+        [DSMIndex]
+        public string Location { get; set; }
+    }
+	
+	<# for(int i = 1 ; i <= N; ++i) { #>
+    public interface IIndexedPlayerDSMIndexGrain<#= i #> : IPlayerInterface, IGrainWithIntegerKey, IIndexableGrain<IndexedPlayerDSMIndexProperties>
+    {
+    }
+	<# } #>
+    #endregion
+}

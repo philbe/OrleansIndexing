@@ -1,0 +1,63 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+<#
+////// Experiment Parameters
+var scenario = "scenario05";
+var runTimeSecsArr = new[] {120};
+var grainCountArr = new[] {10000, 100000};
+var distinctKeyCountArr = new[] {10000, 1000};
+var numGrainTypesArr = new[] {1, 2, 5, 10, 20};
+var indexTypeArr = new[]{"NotIndexed", "AIndex", "IIndex", "DSMIndex"};
+
+//// robot numbers array
+var numRobotsArr = new List<int>();
+var fromRobotNum = 2000;
+var toRobotNum = 60000;
+var stepRobotNum = 500;
+for(int numRobots = fromRobotNum; numRobots < toRobotNum; numRobots += stepRobotNum) {
+	if(numRobots >= 5000) numRobots += stepRobotNum;
+	if(numRobots >= 10000) numRobots += stepRobotNum;
+	if(numRobots >= 15000) numRobots += stepRobotNum;
+	if(numRobots > 20000) numRobots += stepRobotNum;
+
+	numRobotsArr.Add(numRobots);
+}
+////////////////////////////////
+
+var commandBatchSize = 200;
+////////////////////////////////////////////////////////////////////////////////////
+
+int totalCounter = 0;
+int batchCounter = 0;
+int batches = 1;
+#>{ benchmark: "indexing", prototype: { scenarioType: "<#=scenario #>", randomseed: 1267897555}, scenarios: [ <#
+foreach(var runTimeSecs in runTimeSecsArr) {
+	foreach(var mainGrainCount in grainCountArr) {
+		foreach(var distinctKeyCount in distinctKeyCountArr) {
+			foreach(var numGrainTypes in numGrainTypesArr) {
+				var grainCount = mainGrainCount / numGrainTypes;
+				foreach(var indexType in indexTypeArr) {
+					foreach(var numRobots in numRobotsArr) {
+						++batchCounter;
+						++totalCounter;
+#>{runTimeSecs: <#=runTimeSecs #>, indexType: "<#=indexType #>", numRobots:<#=numRobots #>, numGrainTypes:<#=numGrainTypes #>, grainCount:<#=grainCount #>, distinctKeyCount:<#=distinctKeyCount #>}, <# 
+					}
+					if(batchCounter > commandBatchSize)
+					{
+						batchCounter = 0;
+						++batches;
+#> ] }
+{ benchmark: "indexing", prototype: { scenarioType: "<#=scenario #>", randomseed: 1267897555}, scenarios: [ <#
+					}
+				}
+			}
+		}
+	}
+}
+ #> ] }
+
+<#=totalCounter #> commands in <#=batches #> batches.

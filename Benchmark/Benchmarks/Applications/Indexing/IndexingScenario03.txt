@@ -1,0 +1,52 @@
+This scenario compares the update performance for persisted and not persisted grains, i.e., one setup of the following
+- NotIndexedNotPersisted
+- NotIndexedPersisted
+- IndexedNotPersisted
+- IndexedPersisted
+
+Fixed parameters, i.e., hard coded in the grain classes
+- A-Index
+- index type: default, i.e., single grain hash index
+- Number of indexed fields: 1
+- Index is not fault-tolerant, i.e., grains extend IndexableGrainNonFaultTolerant
+- index updates are lazy
+- data type of the indexed field: string
+- key range of the indexed field: "location_0" ... "location_[N-1]" (where N is the "distinctKeyCount" paramter below)
+
+Parameters, used in JSON string
+- indexType: type of the index to use, possible values are "NotIndexedNotPersisted", "NotIndexedPersisted", "IndexedNotPersisted", and "IndexedPersisted""
+  - type: string
+  - default: "NotIndexedNotPersisted", if not set
+
+- numRobots: number of concurrent robots running the benchmark
+  - type: int
+  - default: no default
+- runTimeSecs: run time of the benchmark in seconds
+  - type: int
+  - default: 60 seconds, if not set
+- grainCount: number of grains in the experiment - each update targets a random grain 
+  - type: int
+  - default: 1 grain, if not set
+- distinctKeyCount: number of distinct keys - each update picks a random key
+  - type: int
+  - default: 1 key, if not set
+
+- randomseed: seed for the random number generator
+  - type: int
+  - default: new Random(seed + parameters.randomseedoffset).Next();
+- randomseedoffset: used to generator the randomseed, if it is not set explicetly
+  - type: int
+  - default: 0, if not set
+
+- scenarioType: selects the scenario to run - must be equal to "scenario01" in this case
+  - type: string
+- sendbackdelay: needed to not overwhelm conductor with results, and also needed to not influence request performance by sending back results 
+  - type: int
+  - default: 8000ms, if not set
+
+Example:
+{ benchmark: "indexing", prototype: { runTimeSecs: 60, scenarioType: "scenario03", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {indexType: "NotIndexedNotPersisted", numRobots:15000 }, {indexType:"NotIndexedPersisted", numRobots:2000}, {indexType:"IndexedNotPersisted", numRobots:7000}, {indexType:"IndexedPersisted", numRobots:2000} ] }
+{ benchmark: "indexing", prototype: { runTimeSecs: 60, scenarioType: "scenario03", grainCount:1, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {indexType: "NotIndexedNotPersisted", numRobots:3000 }, {indexType:"NotIndexedPersisted", numRobots:200}, {indexType:"IndexedNotPersisted", numRobots:1000}, {indexType:"IndexedPersisted", numRobots:200} ] }
+
+{ benchmark: "indexing", prototype: { runTimeSecs: 60, scenarioType: "scenario03", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {indexType: "NotIndexedNotPersisted", numRobots:15000 }, {indexType:"NotIndexedPersisted", numRobots:3000}, {indexType:"IndexedNotPersisted", numRobots:8000}, {indexType:"IndexedPersisted", numRobots:3000} ] }
+{ benchmark: "indexing", prototype: { runTimeSecs: 60, scenarioType: "scenario03", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {indexType: "NotIndexedNotPersisted", numRobots:25000 }, {indexType:"NotIndexedPersisted", numRobots:4000}, {indexType:"IndexedNotPersisted", numRobots:15000}, {indexType:"IndexedPersisted", numRobots:4000} ] }

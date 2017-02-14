@@ -1,0 +1,33 @@
+--- UpdateThroughputSingleGrain --------------------
+
+{ benchmark: "indexing", prototype: { numRobots:3000, runTimeSecs: 60, scenarioType: "singleGrain"}, scenarios: [ {indexCount:0},{indexCount:1},{indexCount:2},{indexCount:3},{indexCount:4} ] }
+{ benchmark: "indexing", prototype: { numRobots:3000, runTimeSecs: 60, scenarioType: "singleGrain"}, scenarios: [ {indexCount:0} ] }
+
+{ benchmark: "indexing", prototype: { runTimeSecs: 60, scenarioType: "singleGrain"}, scenarios: [ {indexCount:0, numRobots:3000}, {indexCount:1, numRobots:2000} ] }
+
+{ benchmark: "indexing",  prototype: { numRobots:3000, runTimeSecs: 60, scenarioType: "singleGrain"}, scenarios: [ {indexCount:0} ] }
+
+--- UpdateThroughputMultipleGrains --------------------
+
+{ benchmark: "indexing",  prototype: { numRobots:3000, runTimeSecs: 60, scenarioType: "multipleGrains", grainCount:1, distinctKeyCount:10000 }, scenarios: [ {indexCount:0}, {indexCount:1} ] }
+
+{ benchmark: "indexing",  prototype: { numRobots:15000, runTimeSecs: 60, scenarioType: "multipleGrains", grainCount:10000, distinctKeyCount:10000 }, scenarios: [ {indexCount:0}, {indexCount:1} ] }
+
+{ benchmark: "indexing",  prototype: { numRobots:20000, runTimeSecs: 60, scenarioType: "multipleGrains", grainCount:10000, distinctKeyCount:10000 }, scenarios: [ {indexCount:0} ] }
+
+{ benchmark: "indexing",  prototype: { numRobots:10000, runTimeSecs: 60, scenarioType: "multipleGrains", grainCount:10000, distinctKeyCount:10000, indexCount:1 }, scenarios: [ {indexType:"default"}, {indexType:"persilo"}, {indexType:"perkey"}] }
+
+
+--- most recent
+
+{ benchmark: "indexing",  prototype: { numRobots:3000, runTimeSecs: 60, scenarioType: "multipleGrains", grainCount:1, distinctKeyCount:10000 }, scenarios: [ {indexCount:0}, {indexCount:1} ] }
+
+{ benchmark: "indexing",  prototype: { numRobots:15000, runTimeSecs: 60, scenarioType: "multipleGrains", grainCount:10000, distinctKeyCount:10000 }, scenarios: [ {indexCount:0}, {indexCount:1} ] }
+
+{ benchmark: "indexing",  prototype: { numRobots:10000, runTimeSecs: 60, scenarioType: "multipleGrains", grainCount:10000, distinctKeyCount:10000, indexCount:1 }, scenarios: [ {indexType:"default"}, {indexType:"persilo"}, {indexType:"perkey"}] }
+
+
+
+{ benchmark: "indexing", prototype: { numRobots:3000, runTimeSecs: 60, scenarioType: "scenario01", grainCount:1, distinctKeyCount:10000}, scenarios: [ {indexCount:0}, {indexCount:1}, {indexCount:2}, {indexCount:3}, {indexCount:4} ] }
+{ benchmark: "indexing", prototype: { numRobots:3000, runTimeSecs: 60, scenarioType: "scenario02", grainCount:10000, distinctKeyCount:10000}, scenarios: [ {indexType: "none"}, {indexType:"default"}, {indexType:"persilo"}, {indexType:"perkey"} ] }
+{ benchmark: "indexing", prototype: { runTimeSecs: 60, scenarioType: "scenario03", grainCount:10000, distinctKeyCount:10000}, scenarios: [ {numRobots:3000, indexType: "NotIndexedNotPersisted"}, {numRobots:300, indexType:"NotIndexedPersisted"}, {numRobots:3000, indexType:"IndexedNotPersisted"}, {numRobots:300, indexType:"IndexedPersisted"} ] }

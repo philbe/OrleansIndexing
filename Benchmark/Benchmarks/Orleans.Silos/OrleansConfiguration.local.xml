@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OrleansConfiguration xmlns="urn:orleans">
+  <Globals>
+    <Liveness LivenessType="AzureTable" />
+    <StorageProviders>      
+      <Provider Type="Orleans.Storage.AzureTableStorage" Name="GlobalStore" DataConnectionString="UseDevelopmentStorage=true" />
+      <Provider Type="Orleans.Storage.AzureTableStorage" Name="LocalStore" DataConnectionString="UseDevelopmentStorage=true" />
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="MemoryStore" />
+    </StorageProviders>
+    <LogViewProviders>
+      <Provider Type="Orleans.Providers.LogViews.LocalMemoryProvider" Name="DummyProvider"/>
+      <Provider Type="Orleans.Providers.Replication.StatePCMemory" Name="SCMemory"/>
+      <Provider Type="Orleans.Providers.Replication.OperationPCMemory" Name="OpMemory"/>
+      <Provider Type="Orleans.Providers.LogViews.SharedStorageProvider" Name="SharedGlobalStore" GlobalStorageProvider="GlobalStore"/>
+      <Provider Type="Orleans.Providers.LogViews.SharedStorageProvider" Name="SharedMemory" GlobalStorageProvider="MemoryStore"/>
+      <Provider Type="Orleans.Providers.Replication.VR" Name="VR" DataConnectionString="UseDevelopmentStorage=true"/>
+      <Provider Type="Orleans.Providers.Replication.Pileus" Name="Pileus" DataConnectionString="UseDevelopmentStorage=true"/>
+      <Provider Type="Orleans.Providers.Replication.AzureBlobBasedStateReplicationProvider" Name="VivekBlob" DataConnectionString="UseDevelopmentStorage=true"/>
+      <Provider Type="Orleans.Providers.Replication.AzureTableBasedStateReplicationProvider" Name="VivekTable" DataConnectionString="UseDevelopmentStorage=true"/>
+    </LogViewProviders>
+    <SystemStore ServiceId="adf59abc-4778-4ca6-b3c6-aa3e89f908e3"/>
+    <MultiClusterNetwork ClusterId="local">
+      <GossipChannel Type="AzureTable" ConnectionString="UseDevelopmentStorage=true" />      
+    </MultiClusterNetwork>
+  </Globals>
+  <Defaults>
+    <Tracing DefaultTraceLevel="Info" TraceToConsole="false" TraceToFile="{0}-{1}.log" PropagateActivityId="false" WriteMessagingTraces="false" BulkMessageLimit="1000">
+      <!--
+      <TraceLevelOverride LogPrefix="Runtime.MembershipOracle" TraceLevel="Verbose" />
+      <TraceLevelOverride LogPrefix="Runtime.Dispatcher" TraceLevel="Verbose2" />
+      <TraceLevelOverride LogPrefix="Runtime.Message" TraceLevel="Verbose" />
+      <TraceLevelOverride LogPrefix="Runtime.Catalog" TraceLevel="Verbose" />
+      <TraceLevelOverride LogPrefix="GrainAssemblyLoader" TraceLevel="Warning" />
+      <TraceLevelOverride LogPrefix="Runtime.Dispatcher" TraceLevel="Verbose2" />
+      <TraceLevelOverride LogPrefix="Runtime.Message" TraceLevel="Verbose" />
+      <TraceLevelOverride LogPrefix="Runtime.Catalog" TraceLevel="Verbose" />
+      <TraceLevelOverride LogPrefix="Runtime.Orleans.GrainDirectory.LocalGrainDirectory" TraceLevel="Verbose" />
+      -->
+      <TraceLevelOverride LogPrefix="Provider.SharedStorage" TraceLevel="Verbose2" />
+      <TraceLevelOverride LogPrefix="Runtime.MultiClusterOracle" TraceLevel="Verbose3" />
+      <TraceLevelOverride LogPrefix="Runtime.AzureTableBasedGossipChannel" TraceLevel="Verbose3" />
+      <TraceLevelOverride LogPrefix="Runtime.GossipTableInstanceManager" TraceLevel="Verbose3" />
+      <TraceLevelOverride LogPrefix="LogViews" TraceLevel="Verbose2" />
+    </Tracing>
+  </Defaults>
+</OrleansConfiguration>

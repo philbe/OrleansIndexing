@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Orleans" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Orleans.Frontend">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="Conductor" value="orleansindexingbenchmarkconductor.cloudapp.net" />
+      <Setting name="MultiCluster" value="uswest" />
+      <Setting name="DataCenter" value="orleansindexingbenchmark.cloudapp.net" />
+      <Setting name="BenchmarkStorage" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="35275a0d-f371-4b03-89f7-765d917bcff2" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="philbe" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEDPYxwu7cA2qRLngjpkE8+swDQYJKoZIhvcNAQEBBQAEggEArz85UbZM09FFVC/f/YcUFlTD9hM94VIFvAQsro73Qis2o5q+0ty4g4FjQwbJSt9dhSErSHRvY5Fi2ivTAK1OogNd3ashmcb2BEMZ1Udkixy5tCkyIrSMrwstUJbgOAfU/SLbSCGMCmjGicA5mErtpd/1zTlJyitryh8rprsy8bZxLKfWlJAT/Y9CrfZI4kuEpJ7r7TBpoS34tqQvFpILehHKaTbzDvJ7EkV7dIH98Gq6d8KLWa0tP6ojEkgJhbWSXs4aL8RYMj//gUXaQmqSgz3kegCZqaT8asogOGEDuKZntt6vuXizHKf0FCR8YlPWd5hq3HcDgEY08W1P3aF8cjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECJ/8WwpwAsMkgBACoxtgLeiZIbNlzBf24J1g" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-08-24T23:59:59.0000000-07:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="F5638144DE97C1988146946847D8BBB7AD476134" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <Role name="Orleans.Silos">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="DataCenter" value="orleansindexingbenchmark.cloudapp.net" />
+      <Setting name="BenchmarkStorage" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="ad39a5a0-74ad-4b34-8361-a7397e42a09d" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="philbe" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEDPYxwu7cA2qRLngjpkE8+swDQYJKoZIhvcNAQEBBQAEggEArz85UbZM09FFVC/f/YcUFlTD9hM94VIFvAQsro73Qis2o5q+0ty4g4FjQwbJSt9dhSErSHRvY5Fi2ivTAK1OogNd3ashmcb2BEMZ1Udkixy5tCkyIrSMrwstUJbgOAfU/SLbSCGMCmjGicA5mErtpd/1zTlJyitryh8rprsy8bZxLKfWlJAT/Y9CrfZI4kuEpJ7r7TBpoS34tqQvFpILehHKaTbzDvJ7EkV7dIH98Gq6d8KLWa0tP6ojEkgJhbWSXs4aL8RYMj//gUXaQmqSgz3kegCZqaT8asogOGEDuKZntt6vuXizHKf0FCR8YlPWd5hq3HcDgEY08W1P3aF8cjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECJ/8WwpwAsMkgBACoxtgLeiZIbNlzBf24J1g" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-08-24T23:59:59.0000000-07:00" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="F5638144DE97C1988146946847D8BBB7AD476134" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="VNet1" />
+  </NetworkConfiguration>
+</ServiceConfiguration>

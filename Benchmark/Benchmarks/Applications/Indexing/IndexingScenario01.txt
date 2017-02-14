@@ -1,0 +1,55 @@
+This scenario compares the update performance for different numbers of indexed fields in the grain
+
+Fixed parameters, i.e., hard coded in the grain classes
+- A-Index
+- grains and index are not persisted
+- Index type is default, i.e., a single grain holding the index
+- Index is not fault-tolerant, i.e., grains extend IndexableGrainNonFaultTolerant
+- data type of the indexed field: string
+- key range of the indexed field: "location_0" ... "location_[N-1]" (where N is the "distinctKeyCount" paramter below)
+
+Parameters, used in JSON string
+- indexCount: number of indexed fields in the player grain, possible values are 0, 1, 2, 3, and 4
+  - type: int
+  - default: 0
+
+- numRobots: number of concurrent robots running the benchmark
+  - type: int
+  - default: no default
+- runTimeSecs: run time of the benchmark in seconds
+  - type: int
+  - default: 60 seconds, if not set
+- grainCount: number of grains in the experiment - each update targets a random grain 
+  - type: int
+  - default: 1 grain, if not set
+- distinctKeyCount: number of distinct keys - each update picks a random key
+  - type: int
+  - default: 1 key, if not set
+
+- randomseed: seed for the random number generator
+  - type: int
+  - default: new Random(seed + parameters.randomseedoffset).Next();
+- randomseedoffset: used to generator the randomseed, if it is not set explicetly
+  - type: int
+  - default: 0, if not set
+
+- scenarioType: selects the scenario to run - must be equal to "scenario01" in this case
+  - type: string
+- sendbackdelay: needed to not overwhelm conductor with results, and also needed to not influence request performance by sending back results 
+  - type: int
+  - default: 8000ms, if not set
+
+Example:
+{ benchmark: "indexing", prototype: {  runTimeSecs: 60, scenarioType: "scenario01", grainCount:1, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {numRobots:3000,indexCount:0}, {numRobots:1000,indexCount:1}, {numRobots:1000,indexCount:2}, {numRobots:1000,indexCount:3}, {numRobots:1000,indexCount:4} ] }
+{ benchmark: "indexing", prototype: {  runTimeSecs: 60, scenarioType: "scenario01", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {numRobots:14000,indexCount:0}, {numRobots:8000,indexCount:1}, {numRobots:8000,indexCount:2}, {numRobots:8000,indexCount:3}, {numRobots:8000,indexCount:4} ] }
+
+{ benchmark: "indexing", prototype: {  runTimeSecs: 60, scenarioType: "scenario01", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {numRobots:17000,indexCount:0} ] }
+
+{ benchmark: "indexing", prototype: {  runTimeSecs: 60, scenarioType: "scenario01", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {numRobots:25000,indexCount:0}, {numRobots:18000,indexCount:1}, {numRobots:18000,indexCount:2}, {numRobots:18000,indexCount:3}, {numRobots:12000,indexCount:4} ] }
+
+{ benchmark: "indexing", prototype: { numRobots:15000, runTimeSecs: 60, scenarioType: "scenario01", grainCount:100000, distinctKeyCount:100000, randomseed: 1267897555}, scenarios: [ {indexCount:0}, {indexCount:1}, {indexCount:2}, {indexCount:3}, {indexCount:4} ] }
+{ benchmark: "indexing", prototype: { numRobots:15000, runTimeSecs: 60, scenarioType: "scenario01", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {indexCount:0}, {indexCount:1}, {indexCount:2}, {indexCount:3}, {indexCount:4} ] }
+{ benchmark: "indexing", prototype: { numRobots:20000, runTimeSecs: 60, scenarioType: "scenario01", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {indexCount:0} ] }
+
+
+{ benchmark: "indexing", prototype: { numRobots:5000, runTimeSecs: 60, scenarioType: "scenario01", grainCount:10000, distinctKeyCount:10000, randomseed: 1267897555}, scenarios: [ {indexCount:0}, {indexCount:1}, {indexCount:2}, {indexCount:3}, {indexCount:4} ] }

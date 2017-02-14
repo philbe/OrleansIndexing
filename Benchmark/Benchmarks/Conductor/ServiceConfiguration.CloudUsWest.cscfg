@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Conductor" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Conductor.WebRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="BenchmarkStorage" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=orleansindexingwest;AccountKey=c9BjvJiP89f0sm44dkxQ1m6kJsrprjTmN+yAuCT2COsJRqWzRSNXWcL2Gb0eUCa8yjglM49ED+VySK2cpqiYwQ==" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="f3b41788-3d17-4c3f-a02c-c7476459012c" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="t-tikief" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEHJ9qsB0cVCwQKlTDdoYLgswDQYJKoZIhvcNAQEBBQAEggEAZzSBy8WwKSyI/25uzVqAssymVvenJd54Jq7c9wYZqrSLHPUtwnEwBqnFd5KyknPewX0Cs1RcqUTWlWWloY0WBc2/qhqdy4v5+CMo8pBJlWKvPn5kDdhybn/YlOp2Ppl3e7SMiCXdSCfP282m1/03MXtDZoL330RQp3oSVaQrJle2lLJh/m89c2c4EqJoYXLjntz27I8fflEJFm+WN1APfsg+vsNDutXFpjvrTmKl/dR7eRVH/MPjGXzMgEjTHrzb+44lMtu7boVEGJ9iWJDLn2BlvX4KaKhnPhJTXfD4ePQMd6y0IeOs/2oQHHyDntUAtHH7P25gjnmGX5ZzorjfYzAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECA1Ca0bw+/ypgBCjS3ex3+4ojwz0QaPvlLmB" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-07-22T23:59:59.0000000-07:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="792DBB1715D2F09B0A0FF0FF50C60D330639F1A3" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

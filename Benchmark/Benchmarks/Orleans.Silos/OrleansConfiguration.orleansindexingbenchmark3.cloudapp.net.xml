@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<OrleansConfiguration xmlns="urn:orleans">
+  <Globals>
+    <Liveness LivenessType="AzureTable" />
+    <StorageProviders>
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="Default" />
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="MemoryStore" />
+      <Provider Type="Orleans.Storage.MemoryStorage" Name="IndexingStorageProvider" />
+      <Provider Type="Orleans.Storage.AzureTableStorage" Name="BenchmarkStore" DataConnectionString="DefaultEndpointsProtocol=https;AccountName=orleansindexingnorthcent;AccountKey=eTjm3Yx8bTuhJlxajeIC/Ec50XxwGCxr0tljy2YJATdd7/ofg8LkYakXXmSm+s0FY7luX+8LYUSgZw7TL3kLXA==" />
+    </StorageProviders>
+  </Globals>
+  <Defaults>
+    <Tracing DefaultTraceLevel="Info" TraceToConsole="false" TraceToFile="{0}-{1}.log" PropagateActivityId="false" WriteMessagingTraces="false" BulkMessageLimit="1000">
+      <!--
+      <TraceLevelOverride LogPrefix="Runtime.MembershipOracle" TraceLevel="Verbose" />
+      -->
+    </Tracing>
+    <Telemetry>
+      <TelemetryConsumer Type="Orleans.TelemetryConsumers.AI.AITelemetryConsumer" Assembly="OrleansTelemetryConsumers.AI"/>
+    </Telemetry>
+  </Defaults>
+</OrleansConfiguration>

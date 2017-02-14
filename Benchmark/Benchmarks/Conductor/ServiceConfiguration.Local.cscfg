@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Conductor" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Conductor.WebRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="BenchmarkStorage" value="UseDevelopmentStorage=true" />
+      <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="f3b41788-3d17-4c3f-a02c-c7476459012c" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="philbe" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEFpQTO2Rl0yzQKzu8X8n+pgwDQYJKoZIhvcNAQEBBQAEggEAgRah0GMxfK15S2KxnhV6TvmbJ++uJfvzDC1Kgy5Yg8I7+F7/O8WxkupJ+/G+yLvIUg2mIrAMXBodi4cHQxT+6LuhW3cUdf6g+dMKNyKEdZkbWQnRGnCfwg/KOLcyAT+p5b/cxxbPMpd4gNEip9Zqd6EbPA0gSJQob+8ZL/gsyPMGJtVjhnsM3E4zSWd0SP3dio/kGuSP5xaR32uh2eaaUyavRzE60By0afbDcyNVls9pocLCvdhDfx5sCoL9NRp6nn4KBauII1uaonrtn9gBRstd9WhLqtPZj/I1MplNDZ4xZAk5lWSrtdQMua2daJXdO4oPXlOOynSAz1Bd1Bq5SDAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECK+LCMehO+R3gBBmz47OFkhb/VI259xCnnUl" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-07-22T23:59:59.0000000-07:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="B0A713DE8F19A338B2EEF47BBDEBCF2A11AF900C" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

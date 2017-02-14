@@ -204,3 +204,7 @@ FakesAssemblies/
 **/pingme.txt
 .vs/
 src/SetupTestScriptOutput.txt
+Benchmark/Benchmarks/Applications/Indexing/Benchmark/IndexingScenario05.cs
+Benchmark/Benchmarks/Applications/Indexing/Grains/IndexingScenario05Grains.cs
+Benchmark/Benchmarks/Applications/Indexing/Interfaces/IndexingScenario05Imterfaces.cs
+Benchmark/Benchmarks/Applications/Indexing/Benchmark/benchmark-scenario5-gen.txt
