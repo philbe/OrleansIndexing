@@ -197,7 +197,7 @@ namespace Orleans.Storage
 
         /// <summary> Write state data function for this storage provider without 
         /// checking for ETag before update (if there already exists a prior state). </summary>
-        /// <see cref="IStorageProvider.WriteStateAsync"/>
+        /// <see cref="IExtendedStorageProvider.WriteStateWithoutEtagCheckAsync"/>
         public async Task WriteStateWithoutEtagCheckAsync(string grainType, GrainReference grainReference, IGrainState grainState)
         {
             if (tableDataManager == null) throw new ArgumentException("GrainState-Table property not initialized");
