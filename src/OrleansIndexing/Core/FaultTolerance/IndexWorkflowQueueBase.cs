@@ -306,7 +306,7 @@ namespace Orleans.Indexing
                     if(extendedSP == null)
                         await StorageProvider.WriteStateAsync("Orleans.Indexing.IndexWorkflowQueue-" + TypeUtils.GetFullName(_iGrainType), _parent, State);
                     else
-                        await extendedSP.InsertOrUpdateStateAsync("Orleans.Indexing.IndexWorkflowQueue-" + TypeUtils.GetFullName(_iGrainType), _parent, State);
+                        await extendedSP.WriteStateWithoutEtagCheckAsync("Orleans.Indexing.IndexWorkflowQueue-" + TypeUtils.GetFullName(_iGrainType), _parent, State);
                 }
                 //else
                 //{
