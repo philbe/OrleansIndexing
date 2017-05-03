@@ -143,12 +143,23 @@ namespace Orleans.Indexing
         //}
 
         /// <summary>
-        /// 
+        /// This is a helper method for creating an index on a field of an actor.
         /// </summary>
-        /// <param name="gf"></param>
-        /// <param name="idxType"></param>
-        /// <param name="indexName"></param>
-        /// <returns></returns>
+        /// <param name="gf">The current instance of IGrainFactory</param>
+        /// <param name="idxType">The type of index to be created</param>
+        /// <param name="indexName">The index name to be created</param>
+        /// <param name="isUniqueIndex">Determines whether this is a unique index that needs to be created</param>
+        /// <param name="isEager">Determines whether updates to this index should be applied eagerly or not</param>
+        /// <param name="maxEntriesPerBucket">Determines the maximum number of entries in
+        /// each bucket of a distributed index, if this index type is a distributed one.</param>
+        /// <param name="indexedProperty">the PropertyInfo object for the indexed field.
+        /// This object helps in creating a default instance of IndexUpdateGenerator.</param>
+        /// <returns>A triple that consists of:
+        /// 1) the index object (that implements IndexInterface
+        /// 2) the IndexMetaData object for this index, and
+        /// 3) the IndexUpdateGenerator instance for this index.
+        /// This triple is untyped, because IndexInterface, IndexMetaData
+        /// and IndexUpdateGenerator types are not visible in the core project.</returns>
         internal static Tuple<object, object, object> CreateIndex(this IGrainFactory gf, Type idxType, string indexName, bool isUniqueIndex, bool isEager, int maxEntriesPerBucket, PropertyInfo indexedProperty)
         {
             Type iIndexType = idxType.GetGenericType(typeof(IndexInterface<,>));
