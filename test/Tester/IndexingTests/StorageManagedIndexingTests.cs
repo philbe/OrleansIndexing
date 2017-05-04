@@ -32,8 +32,8 @@ namespace UnitTests.IndexingTests
                 string DocumentDBDatabase = "testtest";
                 string DocumentDBOfferType = "10100"; //if V1 => S1, S2 or S3 else if V2 => RU as integer
                 string DocumentDBIndexingMode = "consistent";
-                options.ClusterConfiguration.AddDocumentDBStorageProvider("DocumentDBStore", DocumentDBURL, DocumentDBKey, DocumentDBDatabase, DocumentDBOfferType, DocumentDBIndexingMode);
-                
+                //options.ClusterConfiguration.AddDocumentDBStorageProvider("DocumentDBStore", DocumentDBURL, DocumentDBKey, DocumentDBDatabase, DocumentDBOfferType, DocumentDBIndexingMode);
+                options.ClusterConfiguration.AddMemoryStorageProvider("DocumentDBStore");
                 //options.ClusterConfiguration.Defaults.DefaultTraceLevel = Severity.Verbose;
                 //options.ClientConfiguration.DefaultTraceLevel = Severity.Verbose;
                 //options.ClusterConfiguration.GetOrCreateNodeConfigurationForSilo("Primary").DefaultTraceLevel = Severity.Verbose;

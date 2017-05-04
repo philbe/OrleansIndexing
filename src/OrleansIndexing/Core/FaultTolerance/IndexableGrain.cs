@@ -48,14 +48,14 @@ namespace Orleans.Indexing
             set { base.State.workflowQueues = value; }
         }
 
-        //0: uninitialized, 1: has some I-Indexes, 2: does not have any I-Index
-        private sbyte __hasAnyIIndex;
-        private bool HasAnyIIndex { get { return __hasAnyIIndex == 0 ? InitHasAnyIIndex() : __hasAnyIIndex > 0; } }
+        //0: uninitialized, 1: has some Cosmos Indexes, 2: does not have any Cosmos Index
+        private sbyte __hasAnyCosmosIndex;
+        private bool HasAnyCosmosIndex { get { return __hasAnyCosmosIndex == 0 ? InitHasAnyCosmosIndex() : __hasAnyCosmosIndex > 0; } }
 
         public override Task OnActivateAsync()
         {
             //set it as un-initialized
-            __hasAnyIIndex = 0;
+            __hasAnyCosmosIndex = 0;
 
             //if the list of active work-flows is null or empty
             //we can assume that we did not contact any work-flow
@@ -93,7 +93,7 @@ namespace Orleans.Indexing
                                                        int numberOfUniqueIndexesUpdated,
                                                        bool writeStateIfConstraintsAreNotViolated)
         {
-            if (HasAnyIIndex)
+            if (HasAnyCosmosIndex)
             {
                 //if there is any update to the indexes
                 //we go ahead and updates the indexes
@@ -371,7 +371,7 @@ namespace Orleans.Indexing
             return _props;
         }
 
-        private bool InitHasAnyIIndex()
+        private bool InitHasAnyCosmosIndex()
         {
             IList<Type> iGrainTypes = GetIIndexableGrainTypes();
             foreach (var iGrainType in iGrainTypes)
@@ -379,14 +379,14 @@ namespace Orleans.Indexing
                 var indexes = IndexHandler.GetIndexes(iGrainType);
                 foreach (var idxInfo in indexes.Values)
                 {
-                    if (idxInfo.Item1 is InitializedIndex)
+                    if (idxInfo.Item1 is CosmosIndex)
                     {
-                        __hasAnyIIndex = 1;
+                        __hasAnyCosmosIndex = 1;
                         return true;
                     }
                 }
             }
-            __hasAnyIIndex = -1;
+            __hasAnyCosmosIndex = -1;
             return false;
         }
     }

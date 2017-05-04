@@ -51,9 +51,9 @@ namespace Orleans.Indexing
         private Type _iGrainType;
 
         private bool _isDefinedAsFaultTolerantGrain;
-        private sbyte __hasAnyIIndex;
-        private bool HasAnyIIndex { get { return __hasAnyIIndex == 0 ? InitHasAnyIIndex() : __hasAnyIIndex > 0; } }
-        private bool IsFaultTolerant { get { return _isDefinedAsFaultTolerantGrain && HasAnyIIndex; } }
+        private sbyte __hasAnyCosmosIndex;
+        private bool HasAnyCosmosIndex { get { return __hasAnyCosmosIndex == 0 ? InitHasAnyCosmosIndex() : __hasAnyCosmosIndex > 0; } }
+        private bool IsFaultTolerant { get { return _isDefinedAsFaultTolerantGrain && HasAnyCosmosIndex; } }
 
         private IIndexWorkflowQueueHandler __handler;
         private IIndexWorkflowQueueHandler Handler { get { return __handler == null ? InitWorkflowQueueHandler() : __handler; } }
@@ -101,7 +101,7 @@ namespace Orleans.Indexing
             _isHandlerWorkerIdle = 1;
 
             _isDefinedAsFaultTolerantGrain = isDefinedAsFaultTolerantGrain;
-            __hasAnyIIndex = 0;
+            __hasAnyCosmosIndex = 0;
 
             _writeLock = new AsyncLock();
             _writeRequestIdGen = 0;
@@ -358,18 +358,18 @@ namespace Orleans.Indexing
         //    return removedWorkflow.Grain.AsReference<IIndexableGrain>(InsideRuntimeClient.Current.ConcreteGrainFactory, _iGrainType).RemoveFromActiveWorkflowIds(removedWorkflow.WorkflowId);
         //}
 
-        private bool InitHasAnyIIndex()
+        private bool InitHasAnyCosmosIndex()
         {
             var indexes = IndexHandler.GetIndexes(_iGrainType);
             foreach (var idxInfo in indexes.Values)
             {
-                if (idxInfo.Item1 is InitializedIndex)
+                if (idxInfo.Item1 is CosmosIndex)
                 {
-                    __hasAnyIIndex = 1;
+                    __hasAnyCosmosIndex = 1;
                     return true;
                 }
             }
-            __hasAnyIIndex = -1;
+            __hasAnyCosmosIndex = -1;
             return false;
         }
 

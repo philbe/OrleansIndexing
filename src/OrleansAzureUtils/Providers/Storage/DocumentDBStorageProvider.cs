@@ -347,7 +347,7 @@ namespace Orleans.StorageProvider.DocumentDB
         private static bool isIndexingAvailable = false;
         //private static Type iIndexableGrainType;
         private static Type genericIIndexableGrainType;
-        private static Type DSMIndexAttributeType;
+        private static Type StorageManagedIndexAttributeType;
         private static PropertyInfo indexTypeProperty;
         private static Type genericFaultTolerantIndexableGrainType;
 
@@ -360,8 +360,8 @@ namespace Orleans.StorageProvider.DocumentDB
                 {
                     //iIndexableGrainType = Type.GetType("Orleans.Indexing.IIndexableGrain, OrleansIndexing")
                     genericIIndexableGrainType = Type.GetType("Orleans.Indexing.IIndexableGrain`1" + AssemblySeparator + OrleansIndexingAssembly);
-                    DSMIndexAttributeType = Type.GetType("Orleans.Indexing.DSMIndexAttribute" + AssemblySeparator + OrleansIndexingAssembly);
-                    indexTypeProperty = DSMIndexAttributeType.GetProperty("IndexType");
+                    StorageManagedIndexAttributeType = Type.GetType("Orleans.Indexing.StorageManagedIndexAttribute" + AssemblySeparator + OrleansIndexingAssembly);
+                    indexTypeProperty = StorageManagedIndexAttributeType.GetProperty("IndexType");
                     genericFaultTolerantIndexableGrainType = Type.GetType("Orleans.Indexing.IndexableGrain`1" + AssemblySeparator + OrleansIndexingAssembly);
 
                     isIndexingAvailable = true;
@@ -441,7 +441,7 @@ namespace Orleans.StorageProvider.DocumentDB
                 //provided in the annotation
                 foreach (PropertyInfo p in propertiesArg.GetProperties())
                 {
-                    var indexAttrs = p.GetCustomAttributes(DSMIndexAttributeType, false);
+                    var indexAttrs = p.GetCustomAttributes(StorageManagedIndexAttributeType, false);
                     foreach (var indexAttr in indexAttrs)
                     {
                         string indexName = p.Name;

@@ -10,7 +10,7 @@ namespace UnitTests.GrainInterfaces
     {
         public int Score { get; set; }
 
-        [AIndex(IndexType.HashIndexPartitionedBySilo, IsEager: true)]
+        [ActiveIndex(IndexType.HashIndexPartitionedBySilo, IsEager: true)]
         public string Location { get; set; }
     }
 

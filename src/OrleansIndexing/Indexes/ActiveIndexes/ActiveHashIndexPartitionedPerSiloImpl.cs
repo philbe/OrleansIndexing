@@ -19,14 +19,14 @@ namespace Orleans.Indexing
     //[StatelessWorker]
     //TODO: because of a bug in OrleansStreams, this grain cannot be StatelessWorker. It should be fixed later.
     //TODO: basically, this class does not even need to be a grain, but it's not possible to call a SystemTarget from a non-grain
-    public class AHashIndexPartitionedPerSiloImpl<K, V> : Grain, AHashIndexPartitionedPerSilo<K, V> where V : class, IIndexableGrain
+    public class ActiveHashIndexPartitionedPerSiloImpl<K, V> : Grain, ActiveHashIndexPartitionedPerSilo<K, V> where V : class, IIndexableGrain
     {
-        private static readonly Logger logger = LogManager.GetLogger(string.Format("AHashIndexPartitionedPerSiloImpl<{0},{1}>", typeof(K).Name, typeof(V).Name), LoggerType.Grain);
+        private static readonly Logger logger = LogManager.GetLogger(string.Format("ActiveHashIndexPartitionedPerSiloImpl<{0},{1}>", typeof(K).Name, typeof(V).Name), LoggerType.Grain);
 
         private IndexStatus _status;
         public static void InitPerSilo(Silo silo, string indexName, bool isUnique)
         {
-            silo.RegisterSystemTarget(new AHashIndexPartitionedPerSiloBucketImpl(
+            silo.RegisterSystemTarget(new ActiveHashIndexPartitionedPerSiloBucketImpl(
                 indexName,
                 GetGrainID(indexName),
                 silo.SiloAddress
@@ -41,13 +41,13 @@ namespace Orleans.Indexing
         }
 
         /// <summary>
-        /// DirectApplyIndexUpdateBatch is not supported on AHashIndexPartitionedPerSiloImpl,
+        /// DirectApplyIndexUpdateBatch is not supported on ActiveHashIndexPartitionedPerSiloImpl,
         /// because it will be skipped via IndexExtensions.DirectApplyIndexUpdateBatch
         /// </summary>
         public Task<bool> DirectApplyIndexUpdateBatch(Immutable<IDictionary<IIndexableGrain, IList<IMemberUpdate>>> iUpdates, bool isUnique, IndexMetaData idxMetaData, SiloAddress siloAddress = null)
         {
             //if (logger.IsVerbose) logger.Verbose("Started calling DirectApplyIndexUpdateBatch with the following parameters: isUnique = {0}, siloAddress = {1}, iUpdates = {2}", isUnique, siloAddress, MemberUpdate.UpdatesToString(iUpdates.Value));
-            //AHashIndexPartitionedPerSiloBucket bucketInCurrentSilo = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<AHashIndexPartitionedPerSiloBucket>(
+            //ActiveHashIndexPartitionedPerSiloBucket bucketInCurrentSilo = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<ActiveHashIndexPartitionedPerSiloBucket>(
             //    GetGrainID(IndexUtils.GetIndexNameFromIndexGrain(this)),
             //    siloAddress
             //);
@@ -57,12 +57,12 @@ namespace Orleans.Indexing
         }
 
         /// <summary>
-        /// DirectApplyIndexUpdate is not supported on AHashIndexPartitionedPerSiloImpl,
+        /// DirectApplyIndexUpdate is not supported on ActiveHashIndexPartitionedPerSiloImpl,
         /// because it will be skipped via IndexExtensions.ApplyIndexUpdate
         /// </summary>
         public Task<bool> DirectApplyIndexUpdate(IIndexableGrain g, Immutable<IMemberUpdate> iUpdate, bool isUniqueIndex, IndexMetaData idxMetaData, SiloAddress siloAddress)
         {
-            //AHashIndexPartitionedPerSiloBucket bucketInCurrentSilo = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<AHashIndexPartitionedPerSiloBucket>(
+            //ActiveHashIndexPartitionedPerSiloBucket bucketInCurrentSilo = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<ActiveHashIndexPartitionedPerSiloBucket>(
             //    GetGrainID(IndexUtils.GetIndexNameFromIndexGrain(this)),
             //    siloAddress
             //);
@@ -107,7 +107,7 @@ namespace Orleans.Indexing
             foreach (SiloAddress siloAddress in hosts.Keys)
             {
                 //dispose the index on each silo
-                disposeToSilos[i] = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<AHashIndexPartitionedPerSiloBucket>(
+                disposeToSilos[i] = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<ActiveHashIndexPartitionedPerSiloBucket>(
                     grainID,
                     siloAddress
                 ).Dispose();
@@ -148,7 +148,7 @@ namespace Orleans.Indexing
             foreach (SiloAddress siloAddress in hosts.Keys)
             {
                 //query each silo
-                queriesToSilos.Add(InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<AHashIndexPartitionedPerSiloBucket>(
+                queriesToSilos.Add(InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<ActiveHashIndexPartitionedPerSiloBucket>(
                     grainID,
                     siloAddress
                 ).Lookup(/*result, */key)); //TODO: because of a bug in OrleansStream, a SystemTarget cannot work with streams. It should be fixed later.

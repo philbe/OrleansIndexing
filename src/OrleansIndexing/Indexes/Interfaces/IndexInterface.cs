@@ -64,7 +64,7 @@ namespace Orleans.Indexing
 
         /// <summary>
         /// This method is used for extracting the whole result of
-        /// a lookup from an AHashIndexPartitionedPerSiloBucket.
+        /// a lookup from an ActiveHashIndexPartitionedPerSiloBucket.
         /// 
         /// TODO: This should not be necessary if we could call streams
         /// from within a SystemTarget, and the stream were efficient enough
@@ -94,7 +94,7 @@ namespace Orleans.Indexing
 
         /// <summary>
         /// This method is used for extracting the whole result of
-        /// a lookup from an AHashIndexPartitionedPerSiloBucket.
+        /// a lookup from an ActiveHashIndexPartitionedPerSiloBucket.
         /// 
         /// TODO: This should not be necessary if we could call streams
         /// from within a SystemTarget, and the stream were efficient enough

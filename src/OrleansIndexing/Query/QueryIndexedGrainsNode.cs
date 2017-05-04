@@ -30,7 +30,7 @@ namespace Orleans.Indexing
         {
             IndexInterface index = GetGrainFactory().GetIndex(_indexName, typeof(TIGrain));
             //Type indexType = index.GetType();
-            //if(indexType.GetGenericTypeDefinition() == typeof(AHashIndexPartitionedPerSiloImpl<,>))
+            //if(indexType.GetGenericTypeDefinition() == typeof(ActiveHashIndexPartitionedPerSiloImpl<,>))
             //{
             //    indexType.GetMethod("SetGrainFactory").Invoke(index, new object[] { GetGrainFactory() });
             //}
@@ -43,7 +43,7 @@ namespace Orleans.Indexing
         {
             IndexInterface index = GetGrainFactory().GetIndex(_indexName, typeof(TIGrain));
             //Type indexType = index.GetType();
-            //if(indexType.GetGenericTypeDefinition() == typeof(AHashIndexPartitionedPerSiloImpl<,>))
+            //if(indexType.GetGenericTypeDefinition() == typeof(ActiveHashIndexPartitionedPerSiloImpl<,>))
             //{
             //    indexType.GetMethod("SetGrainFactory").Invoke(index, new object[] { GetGrainFactory() });
             //}

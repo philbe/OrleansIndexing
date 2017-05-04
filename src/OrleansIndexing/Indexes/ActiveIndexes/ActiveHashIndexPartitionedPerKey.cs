@@ -15,9 +15,9 @@ namespace Orleans.Indexing
     /// <typeparam name="K">type of hash-index key</typeparam>
     /// <typeparam name="V">type of grain that is being indexed</typeparam>
     [Serializable]
-    public class AHashIndexPartitionedPerKey<K, V> : HashIndexPartitionedPerKey<K, V, AHashIndexPartitionedPerKeyBucket<K,V>> where V : class, IIndexableGrain
+    public class ActiveHashIndexPartitionedPerKey<K, V> : HashIndexPartitionedPerKey<K, V, ActiveHashIndexPartitionedPerKeyBucket<K,V>> where V : class, IIndexableGrain
     {
-        public AHashIndexPartitionedPerKey(string indexName, bool isUniqueIndex) : base(indexName, isUniqueIndex)
+        public ActiveHashIndexPartitionedPerKey(string indexName, bool isUniqueIndex) : base(indexName, isUniqueIndex)
         {
         }
     }

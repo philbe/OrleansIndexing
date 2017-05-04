@@ -248,7 +248,7 @@ namespace Orleans.Runtime
             {
                 //check either all indexes are defined as lazy
                 //or all indexes are defined as lazy and none of them
-                //are I-Index, because I-Indexes cannot be lazy
+                //are Cosmos Index, because Cosmos Indexes cannot be lazy
                 CheckAllIndexesAreEitherLazyOrEager(propertiesArg, userDefinedIGrain, userDefinedGrainImpl);
 
                 IDictionary<string, Tuple<object, object, object>> indexesOnGrain = new Dictionary<string, Tuple<object, object, object>>();
@@ -299,12 +299,12 @@ namespace Orleans.Runtime
                 {
                     bool isEager = (bool)isEagerProperty.GetValue(indexAttr);
                     Type indexType = (Type)indexTypeProperty.GetValue(indexAttr);
-                    bool isIIndex = initializedIndexType.IsAssignableFrom(indexType);
+                    bool isCosmosIndex = initializedIndexType.IsAssignableFrom(indexType);
 
-                    //I-Index cannot be configured as being lazy
-                    if (isIIndex && isEager)
+                    //Cosmos Index cannot be configured as being lazy
+                    if (isCosmosIndex && isEager)
                     {
-                        throw new InvalidOperationException(string.Format("An I-Index cannot be configured to be updated eagerly. The only option for updating an I-Index is lazy updating. I-Index of type {0} is defined to be updated eagerly on property {1} of class {2} on {3} grain interface.", TypeUtils.GetFullName(indexType), p.Name, TypeUtils.GetFullName(propertiesArg), TypeUtils.GetFullName(userDefinedIGrain)));
+                        throw new InvalidOperationException(string.Format("A Cosmos Index cannot be configured to be updated eagerly. The only option for updating a Cosmos Index is lazy updating. Cosmos Index of type {0} is defined to be updated eagerly on property {1} of class {2} on {3} grain interface.", TypeUtils.GetFullName(indexType), p.Name, TypeUtils.GetFullName(propertiesArg), TypeUtils.GetFullName(userDefinedIGrain)));
                     }
                     else if(isFaultTolerant && isEager)
                     {
@@ -312,7 +312,7 @@ namespace Orleans.Runtime
                     }
                     else if (isEager != isFirstIndexEager)
                     {
-                        throw new InvalidOperationException(string.Format("Some indexes on property class {0} of {1} grain interface are defined to be updated eagerly while others are configured as lazy updating. You should fix this by configuring all indexes to be updated lazily or eagerly. If you have at least one I-Index among your indexes, then all other indexes should be configured as lazy, too.", TypeUtils.GetFullName(propertiesArg), TypeUtils.GetFullName(userDefinedIGrain)));
+                        throw new InvalidOperationException(string.Format("Some indexes on property class {0} of {1} grain interface are defined to be updated eagerly while others are configured as lazy updating. You should fix this by configuring all indexes to be updated lazily or eagerly. If you have at least one Cosmos Index among your indexes, then all other indexes should be configured as lazy, too.", TypeUtils.GetFullName(propertiesArg), TypeUtils.GetFullName(userDefinedIGrain)));
                     }
                 }
             }
