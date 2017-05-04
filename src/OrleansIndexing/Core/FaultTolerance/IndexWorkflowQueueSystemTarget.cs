@@ -41,7 +41,7 @@ namespace Orleans.Indexing
         internal IndexWorkflowQueueSystemTarget(Type grainInterfaceType, int queueSequenceNumber, SiloAddress silo, bool isDefinedAsFaultTolerantGrain) : base(IndexWorkflowQueueBase.CreateIndexWorkflowQueueGrainId(grainInterfaceType, queueSequenceNumber), silo)
         {
             GrainReference thisRef = this.AsWeaklyTypedReference();
-            _base = new IndexWorkflowQueueBase(grainInterfaceType, queueSequenceNumber, silo, isDefinedAsFaultTolerantGrain, grainId, thisRef);
+            _base = new IndexWorkflowQueueBase(grainInterfaceType, queueSequenceNumber, silo, isDefinedAsFaultTolerantGrain, ((ISystemTargetBase)this).GrainId, thisRef);
         }
 
         public Task AddAllToQueue(Immutable<List<IndexWorkflowRecord>> workflowRecords)
