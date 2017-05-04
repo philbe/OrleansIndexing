@@ -27,7 +27,6 @@ namespace Orleans.StorageProvider.DocumentDB
         internal const string INDEXING_MODE_CONSISTENT = "consistent";
         internal const string INDEXING_MODE_LAZY = "lazy";
         internal const string DATABASE = "Database";
-        //internal const string OFFER_TYPE_VERSION = "OfferTypeVersion";
         internal const string OFFER_TYPE = "OfferType";
 
         public string Name { get; set; }
@@ -41,8 +40,6 @@ namespace Orleans.StorageProvider.DocumentDB
         private string IndexMode { get; set; }
 
         private string OfferType { get; set; }
-
-        //private string OfferTypeVersion { get; set; }
 
         private JsonSerializerSettings jsonSettings;
 
@@ -63,7 +60,6 @@ namespace Orleans.StorageProvider.DocumentDB
                 this.jsonSettings = OrleansJsonSerializer.UpdateSerializerSettings(OrleansJsonSerializer.GetDefaultSerializerSettings(), config);
                 var url = config.Properties[URL];
                 var key = config.Properties[KEY];
-                //OfferTypeVersion = config.Properties[OFFER_TYPE_VERSION]; //V1 or V2
                 OfferType = config.Properties[OFFER_TYPE]; //if V1 => S1, S2, S3 else if V2 => RU as integer
                 DatabaseName = config.Properties[DATABASE];
                 IndexMode = config.Properties.ContainsKey(INDEXING_MODE) ? config.Properties[INDEXING_MODE] : INDEXING_MODE_CONSISTENT;

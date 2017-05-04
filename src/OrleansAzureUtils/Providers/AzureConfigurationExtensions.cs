@@ -100,7 +100,6 @@ namespace Orleans.Runtime.Configuration
             string url = null,
             string key = null,
             string database = null,
-            //string offerTypeVersion = null,
             string offerType = null,
             string indexingMode = null)
         {
@@ -109,7 +108,6 @@ namespace Orleans.Runtime.Configuration
                 { DocumentDBStorageProvider.URL, url },
                 { DocumentDBStorageProvider.KEY, key },
                 { DocumentDBStorageProvider.DATABASE, database },
-                //{ DocumentDBStorageProvider.OFFER_TYPE_VERSION, offerTypeVersion },
                 { DocumentDBStorageProvider.OFFER_TYPE, offerType },
                 { DocumentDBStorageProvider.INDEXING_MODE, indexingMode }
             };
