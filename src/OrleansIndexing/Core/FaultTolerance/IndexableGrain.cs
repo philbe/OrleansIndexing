@@ -1,12 +1,10 @@
-﻿using Orleans;
-using Orleans.Concurrency;
+﻿using Orleans.Concurrency;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using Orleans.Runtime;
 using System.Reflection;
 using System.Linq;
-using Orleans.Storage;
 
 namespace Orleans.Indexing
 {

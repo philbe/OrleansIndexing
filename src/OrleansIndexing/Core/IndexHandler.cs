@@ -69,16 +69,8 @@ namespace Orleans.Indexing
             }
             else
             {
-                //this part of code is commented out, because it should
-                //never happen that the indexes are not loaded, if the
+                //it should never happen that the indexes are not loaded if the
                 //index is registered in the index registry
-                //await ReloadIndexes();
-                //if (_indexes.Value.TryGetValue(indexName, out index))
-                //{
-                //    return Task.FromResult(index.Item1);
-                //}
-                //else
-                //{
                 throw new Exception(string.Format("Index \"{0}\" does not exist for {1}.", indexName, iGrainType));
                 //}
             }

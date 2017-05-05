@@ -1,15 +1,12 @@
-﻿using Orleans;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Orleans.Concurrency;
 using Orleans.Runtime;
 using K = System.Object;
 using V = Orleans.Indexing.IIndexableGrain;
 using Orleans.Providers;
-using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 
 namespace Orleans.Indexing
@@ -77,23 +74,10 @@ namespace Orleans.Indexing
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Task<bool> DirectApplyIndexUpdate(IIndexableGrain g, IMemberUpdate updt, bool isUniqueIndex, IndexMetaData idxMetaData, SiloAddress siloAddress)
         {
-            //the index can start processing update as soon as it becomes
-            //visible to index handler and does not have to wait for any
-            //further event regarding index builder, so it is not necessary
-            //to have a Created state
-            //if (State.IndexStatus == IndexStatus.Created) return true;
-
-            //GrainFactory gFactory = InsideRuntimeClient.Current.InternalGrainFactory;
-
-            V updatedGrain = g;//.AsReference<V>(gFactory);
+            V updatedGrain = g;
             HashIndexBucketUtils.UpdateBucket(updatedGrain, updt, State, isUniqueIndex, idxMetaData);
             return Task.FromResult(true);
         }
-
-        //public Task<bool> IsUnique()
-        //{
-        //    return Task.FromResult(State.IsUnique);
-        //}
 
         public async Task Lookup(IOrleansQueryResultStream<V> result, K key)
         {
@@ -116,11 +100,6 @@ namespace Orleans.Indexing
                 await result.OnCompletedAsync();
             }
         }
-
-        //Task IndexInterface.Lookup(IOrleansQueryResultStream<IIndexableGrain> result, object key)
-        //{
-        //    return Lookup((IOrleansQueryResultStream<V>)result, (K)key);
-        //}
 
         public Task<IOrleansQueryResult<V>> Lookup(K key)
         {

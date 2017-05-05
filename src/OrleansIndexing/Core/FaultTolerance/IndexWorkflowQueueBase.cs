@@ -1,13 +1,8 @@
 ﻿using Orleans.Concurrency;
-using Orleans.Core;
-using Orleans.Providers;
 using Orleans.Runtime;
 using Orleans.Storage;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -227,29 +222,6 @@ namespace Orleans.Indexing
             return punctutationHead;
         }
 
-        //public async Task RemoveFromQueue(IndexWorkflowRecordNode workflowsHead, int numWorkflows)
-        //{
-        //    if (numWorkflows == 0) return;
-
-        //    IndexWorkflowRecordNode tmpNext;
-        //    int i = 0;
-        //    do
-        //    {
-        //        tmpNext = workflowsHead.Next;
-        //        if (i == 0 || i == (numWorkflows - 1))
-        //        {
-        //            workflowsHead.Remove(ref workflowRecordsTail, ref State.State.WorkflowRecordsHead);
-        //        }
-        //        else
-        //        {
-        //            workflowsHead.Clean();
-        //        }
-        //        workflowsHead = tmpNext;
-        //    } while (++i < numWorkflows);
-
-        //    await PersistState();
-        //}
-
         private List<IndexWorkflowRecord> RemoveFromQueueUntilPunctuation(IndexWorkflowRecordNode from)
         {
             List<IndexWorkflowRecord> workflowRecords = new List<IndexWorkflowRecord>();
@@ -277,12 +249,6 @@ namespace Orleans.Indexing
 
             return workflowRecords;
         }
-
-        //public Task RemoveFromQueueAndPersist(IndexWorkflowRecordNode from, IndexWorkflowRecordNode to)
-        //{
-        //    RemoveFromQueue(from, to);
-        //    return PersistState();
-        //}
 
         private async Task PersistState()
         {
@@ -347,16 +313,6 @@ namespace Orleans.Indexing
                 return Task.FromResult(AddPuctuationAt(BATCH_SIZE).AsImmutable());
             }
         }
-
-        //private Task RemoveWorkflowRecordsFromIndexableGrains(List<IndexWorkflowRecord> removedWorkflows)
-        //{
-        //    return Task.WhenAll(removedWorkflows.Select(wfRec => RemoveWorkflowRecordFromIndexableGrain(wfRec)));
-        //}
-
-        //private Task RemoveWorkflowRecordFromIndexableGrain(IndexWorkflowRecord removedWorkflow)
-        //{
-        //    return removedWorkflow.Grain.AsReference<IIndexableGrain>(InsideRuntimeClient.Current.ConcreteGrainFactory, _iGrainType).RemoveFromActiveWorkflowIds(removedWorkflow.WorkflowId);
-        //}
 
         private bool InitHasAnyCosmosIndex()
         {

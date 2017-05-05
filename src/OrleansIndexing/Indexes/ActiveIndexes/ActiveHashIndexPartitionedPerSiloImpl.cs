@@ -1,12 +1,9 @@
-﻿using Orleans;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Orleans.Concurrency;
 using Orleans.Runtime;
-using System.Threading;
 
 namespace Orleans.Indexing
 {
@@ -46,13 +43,6 @@ namespace Orleans.Indexing
         /// </summary>
         public Task<bool> DirectApplyIndexUpdateBatch(Immutable<IDictionary<IIndexableGrain, IList<IMemberUpdate>>> iUpdates, bool isUnique, IndexMetaData idxMetaData, SiloAddress siloAddress = null)
         {
-            //if (logger.IsVerbose) logger.Verbose("Started calling DirectApplyIndexUpdateBatch with the following parameters: isUnique = {0}, siloAddress = {1}, iUpdates = {2}", isUnique, siloAddress, MemberUpdate.UpdatesToString(iUpdates.Value));
-            //ActiveHashIndexPartitionedPerSiloBucket bucketInCurrentSilo = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<ActiveHashIndexPartitionedPerSiloBucket>(
-            //    GetGrainID(IndexUtils.GetIndexNameFromIndexGrain(this)),
-            //    siloAddress
-            //);
-            //return bucketInCurrentSilo.DirectApplyIndexUpdateBatch(iUpdates, isUnique/*, siloAddress*/);
-            //if (logger.IsVerbose) logger.Verbose("Finished calling DirectApplyIndexUpdateBatch with the following parameters: isUnique = {0}, siloAddress = {1}, iUpdates = {2}", isUnique, siloAddress, MemberUpdate.UpdatesToString(iUpdates.Value));
             throw new NotSupportedException();
         }
 
@@ -62,11 +52,6 @@ namespace Orleans.Indexing
         /// </summary>
         public Task<bool> DirectApplyIndexUpdate(IIndexableGrain g, Immutable<IMemberUpdate> iUpdate, bool isUniqueIndex, IndexMetaData idxMetaData, SiloAddress siloAddress)
         {
-            //ActiveHashIndexPartitionedPerSiloBucket bucketInCurrentSilo = InsideRuntimeClient.Current.InternalGrainFactory.GetSystemTarget<ActiveHashIndexPartitionedPerSiloBucket>(
-            //    GetGrainID(IndexUtils.GetIndexNameFromIndexGrain(this)),
-            //    siloAddress
-            //);
-            //return bucketInCurrentSilo.DirectApplyIndexUpdate(g, iUpdate, isUniqueIndex/*, siloAddress*/);
             throw new NotSupportedException();
         }
 
@@ -140,7 +125,6 @@ namespace Orleans.Indexing
 
         private ISet<Task<IOrleansQueryResult<IIndexableGrain>>> GetResultQueries(Dictionary<SiloAddress, SiloStatus> hosts, object key)
         {
-            //Task[] queriesToSilos = new Task[hosts.Keys.Count];
             ISet<Task<IOrleansQueryResult<IIndexableGrain>>> queriesToSilos = new HashSet<Task<IOrleansQueryResult<IIndexableGrain>>>();
 
             int i = 0;

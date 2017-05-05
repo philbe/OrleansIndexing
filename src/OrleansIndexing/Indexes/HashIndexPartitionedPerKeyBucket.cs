@@ -1,14 +1,9 @@
-﻿using Orleans;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Orleans.Concurrency;
 using Orleans.Runtime;
-using Orleans.Providers;
-using System.Collections.Concurrent;
-using System.Threading;
 using System.Runtime.CompilerServices;
 
 namespace Orleans.Indexing
@@ -106,12 +101,6 @@ namespace Orleans.Indexing
         {
             IndexOperationType opType = updt.GetOperationType();
 
-            //the index can start processing update as soon as it becomes
-            //visible to index handler and does not have to wait for any
-            //further event regarding index builder, so it is not necessary
-            //to have a Created state
-            //if (State.IndexStatus == IndexStatus.Created) return true;
-
             //this variable determines whether index was still unavailable
             //when we received a delete operation
             bool fixIndexUnavailableOnDelete = false;
@@ -197,11 +186,6 @@ namespace Orleans.Indexing
             return GrainFactory.GetGrain<IIndexBuilder<V>>(this.GetPrimaryKeyString());
         }
         #endregion Reentrant Index Update
-
-        //public Task<bool> IsUnique()
-        //{
-        //    return Task.FromResult(State.IsUnique);
-        //}
 
         public async Task Lookup(IOrleansQueryResultStream<V> result, K key)
         {

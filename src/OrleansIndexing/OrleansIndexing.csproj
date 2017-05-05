@@ -74,7 +74,6 @@
     <Compile Include="Core\FaultTolerance\ReincarnatedIndexWorkflowQueue.cs" />
     <Compile Include="Core\FaultTolerance\IndexWorkflowRecordNode.cs" />
     <Compile Include="Core\FaultTolerance\IndexWorkflowQueueHandlerSystemTarget.cs" />
-    <Compile Include="Core\IndexableGrainStorageManaged.cs" />
     <Compile Include="Core\Interfaces\IIndexableGrainFaultTolerant.cs" />
     <Compile Include="Core\Interfaces\IIndexWorkflowQueue.cs" />
     <Compile Include="Core\FaultTolerance\IndexableGrain.cs" />
