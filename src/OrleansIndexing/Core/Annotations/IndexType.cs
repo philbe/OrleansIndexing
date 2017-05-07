@@ -26,7 +26,7 @@ namespace Orleans.Indexing
         /// Represents a distributed hash-index, and each bucket is
         /// maintained by a silo.
         /// 
-        /// PartitionedBySilo indexes are not supported for Cosmos Indexes.
+        /// PartitionedBySilo indexes are not supported for Total Indexes.
         /// </summary>
         HashIndexPartitionedBySilo
     }

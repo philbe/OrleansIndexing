@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Annotations\StorageManagedIndexAttribute.cs" />
-    <Compile Include="Core\Annotations\CosmosIndexAttribute.cs" />
+    <Compile Include="Core\Annotations\TotalIndexAttribute.cs" />
     <Compile Include="Core\Annotations\IndexType.cs" />
     <Compile Include="Core\Annotations\ActiveIndexAttribute.cs" />
     <Compile Include="Core\Annotations\IndexAttribute.cs" />
@@ -115,12 +115,12 @@
     <Compile Include="Indexes\HashIndexSingleBucket.cs" />
     <Compile Include="Indexes\HashIndexBucketUtils.cs" />
     <Compile Include="Indexes\HashIndexBucketState.cs" />
-    <Compile Include="Indexes\CosmosIndexes\CosmosHashIndexPartitionedPerKeyBucketImpl.cs" />
-    <Compile Include="Indexes\CosmosIndexes\CosmosHashIndexPartitionedPerKey.cs" />
-    <Compile Include="Indexes\CosmosIndexes\CosmosHashIndexSingleBucketImpl.cs" />
-    <Compile Include="Indexes\CosmosIndexes\Interfaces\CosmosHashIndexPartitionedPerKeyBucket.cs" />
-    <Compile Include="Indexes\CosmosIndexes\Interfaces\CosmosHashIndexSingleBucket.cs" />
-    <Compile Include="Indexes\CosmosIndexes\Interfaces\CosmosIndex.cs" />
+    <Compile Include="Indexes\TotalIndexes\TotalHashIndexPartitionedPerKeyBucketImpl.cs" />
+    <Compile Include="Indexes\TotalIndexes\TotalHashIndexPartitionedPerKey.cs" />
+    <Compile Include="Indexes\TotalIndexes\TotalHashIndexSingleBucketImpl.cs" />
+    <Compile Include="Indexes\TotalIndexes\Interfaces\TotalHashIndexPartitionedPerKeyBucket.cs" />
+    <Compile Include="Indexes\TotalIndexes\Interfaces\TotalHashIndexSingleBucket.cs" />
+    <Compile Include="Indexes\TotalIndexes\Interfaces\TotalIndex.cs" />
     <Compile Include="Indexes\Interfaces\HashIndexInterface.cs" />
     <Compile Include="Indexes\ActiveIndexes\Interfaces\ActiveHashIndexPartitionedPerSilo.cs" />
     <Compile Include="Indexes\Interfaces\HashIndexPartitionedPerKeyBucketInterface.cs" />

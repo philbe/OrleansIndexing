@@ -23,7 +23,7 @@ namespace Orleans.Indexing
             if (State.IndexMap == null) State.IndexMap = new Dictionary<K, HashIndexSingleBucketEntry<V>>();
             State.IndexStatus = IndexStatus.Available;
             //TODO: support for index construction should be added.
-            //Currently the Cosmos indexes can only be defined in advance.
+            //Currently the Total indexes can only be defined in advance.
             //if (State.IndexStatus == IndexStatus.UnderConstruction)
             //{
             //    var _ = GetIndexBuilder().BuildIndex(indexName, this, IndexUtils.GetIndexUpdateGenerator<V>(GrainFactory, IndexUtils.GetIndexNameFromIndexGrain(this)));

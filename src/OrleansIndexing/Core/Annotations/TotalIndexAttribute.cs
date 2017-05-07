@@ -4,37 +4,37 @@ namespace Orleans.Indexing
 {
     /// <summary>
     /// The attribute for declaring the property fields of an
-    /// indexed grain interface to have a "Cosmos Index", which
+    /// indexed grain interface to have a "Total Index", which
     /// is also known as "Initialized Index".
     /// 
-    /// A "Cosmos Index" indexes all the grains that have been
+    /// A "Total Index" indexes all the grains that have been
     /// created during the lifetime of the application.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class CosmosIndexAttribute : IndexAttribute
+    public sealed class TotalIndexAttribute : IndexAttribute
     {
         /// <summary>
-        /// The default constructor for CosmosIndex.
+        /// The default constructor for TotalIndex.
         /// </summary>
-        public CosmosIndexAttribute() : this(false)
+        public TotalIndexAttribute() : this(false)
         {
         }
 
         /// <summary>
-        /// The constructor for CosmosIndex.
+        /// The constructor for TotalIndex.
         /// </summary>
         /// <param name="IsEager">Determines whether the index should be
         /// updated eagerly upon any change in the indexed grains. Otherwise,
         /// the update propagation happens lazily after applying the update
         /// to the grain itself.</param>
-        public CosmosIndexAttribute(bool IsEager) : this(Indexing.IndexType.HashIndexSingleBucket, IsEager, false)
+        public TotalIndexAttribute(bool IsEager) : this(Indexing.IndexType.HashIndexSingleBucket, IsEager, false)
         {
         }
 
         /// <summary>
-        /// The full-option constructor for CosmosIndex.
+        /// The full-option constructor for TotalIndex.
         /// </summary>
-        /// <param name="type">The index type for the cosmos index</param>
+        /// <param name="type">The index type for the Total index</param>
         /// <param name="IsEager">Determines whether the index should be
         /// updated eagerly upon any change in the indexed grains. Otherwise,
         /// the update propagation happens lazily after applying the update
@@ -45,21 +45,21 @@ namespace Orleans.Indexing
         /// that should be stored in each bucket of a distributed index. This
         /// option is only considered if the index is a distributed index.
         /// Use -1 to declare no limit.</param>
-        public CosmosIndexAttribute(IndexType type, bool IsEager = false, bool IsUnique = false, int MaxEntriesPerBucket = -1)
+        public TotalIndexAttribute(IndexType type, bool IsEager = false, bool IsUnique = false, int MaxEntriesPerBucket = -1)
         {
             switch (type)
             {
                 case Indexing.IndexType.HashIndexSingleBucket:
-                    IndexType = typeof(CosmosHashIndexSingleBucket<,>);
+                    IndexType = typeof(TotalHashIndexSingleBucket<,>);
                     break;
                 case Indexing.IndexType.HashIndexPartitionedByKeyHash:
-                    IndexType = typeof(CosmosHashIndexPartitionedPerKey<,>);
+                    IndexType = typeof(TotalHashIndexPartitionedPerKey<,>);
                     break;
-                //Cosmos indexes partitioned by silo are not supported
+                //Total indexes partitioned by silo are not supported
                 case Indexing.IndexType.HashIndexPartitionedBySilo:
-                    throw new Exception("PartitionedBySilo indexes are not supported for Cosmos Indexes.");
+                    throw new Exception("PartitionedBySilo indexes are not supported for Total Indexes.");
                 default:
-                    IndexType = typeof(CosmosHashIndexSingleBucket<,>);
+                    IndexType = typeof(TotalHashIndexSingleBucket<,>);
                     break;
             }
             this.IsEager = IsEager;

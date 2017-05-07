@@ -10,7 +10,7 @@ namespace UnitTests.GrainInterfaces
     {
         public int Score { get; set; }
 
-        [CosmosIndex(IndexType.HashIndexPartitionedByKeyHash)]
+        [TotalIndex(IndexType.HashIndexPartitionedByKeyHash)]
         public string Location { get; set; }
     }
 

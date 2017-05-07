@@ -46,9 +46,9 @@ namespace Orleans.Indexing
         private Type _iGrainType;
 
         private bool _isDefinedAsFaultTolerantGrain;
-        private sbyte __hasAnyCosmosIndex;
-        private bool HasAnyCosmosIndex { get { return __hasAnyCosmosIndex == 0 ? InitHasAnyCosmosIndex() : __hasAnyCosmosIndex > 0; } }
-        private bool IsFaultTolerant { get { return _isDefinedAsFaultTolerantGrain && HasAnyCosmosIndex; } }
+        private sbyte __hasAnyTotalIndex;
+        private bool HasAnyTotalIndex { get { return __hasAnyTotalIndex == 0 ? InitHasAnyTotalIndex() : __hasAnyTotalIndex > 0; } }
+        private bool IsFaultTolerant { get { return _isDefinedAsFaultTolerantGrain && HasAnyTotalIndex; } }
 
         private IIndexWorkflowQueueHandler __handler;
         private IIndexWorkflowQueueHandler Handler { get { return __handler == null ? InitWorkflowQueueHandler() : __handler; } }
@@ -96,7 +96,7 @@ namespace Orleans.Indexing
             _isHandlerWorkerIdle = 1;
 
             _isDefinedAsFaultTolerantGrain = isDefinedAsFaultTolerantGrain;
-            __hasAnyCosmosIndex = 0;
+            __hasAnyTotalIndex = 0;
 
             _writeLock = new AsyncLock();
             _writeRequestIdGen = 0;
@@ -314,18 +314,18 @@ namespace Orleans.Indexing
             }
         }
 
-        private bool InitHasAnyCosmosIndex()
+        private bool InitHasAnyTotalIndex()
         {
             var indexes = IndexHandler.GetIndexes(_iGrainType);
             foreach (var idxInfo in indexes.Values)
             {
-                if (idxInfo.Item1 is CosmosIndex)
+                if (idxInfo.Item1 is TotalIndex)
                 {
-                    __hasAnyCosmosIndex = 1;
+                    __hasAnyTotalIndex = 1;
                     return true;
                 }
             }
-            __hasAnyCosmosIndex = -1;
+            __hasAnyTotalIndex = -1;
             return false;
         }
 

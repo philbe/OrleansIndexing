@@ -2,9 +2,9 @@
 {
     /// <summary>
     /// This interface is a marker interface for marking
-    /// all Cosmos Index classes and grain interfaces
+    /// all Total Index classes and grain interfaces
     /// </summary>
-    public interface CosmosIndex
+    public interface TotalIndex
     {
     }
 }

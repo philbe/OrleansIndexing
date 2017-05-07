@@ -11,11 +11,11 @@ namespace Orleans.Indexing
     /// <typeparam name="V">type of grain that is being indexed</typeparam>
     [StorageProvider(ProviderName = Constants.INDEXING_STORAGE_PROVIDER_NAME)]
     [Reentrant]
-    public class CosmosHashIndexSingleBucketImpl<K, V> : HashIndexSingleBucket<K, V>, CosmosHashIndexSingleBucket<K, V> where V : class, IIndexableGrain
+    public class TotalHashIndexSingleBucketImpl<K, V> : HashIndexSingleBucket<K, V>, TotalHashIndexSingleBucket<K, V> where V : class, IIndexableGrain
     {
         internal override IndexInterface<K, V> GetNextBucket()
         {
-            var NextBucket = GrainFactory.GetGrain<CosmosHashIndexSingleBucketImpl<K, V>>(IndexUtils.GetNextIndexBucketIdInChain(this.AsWeaklyTypedReference()));
+            var NextBucket = GrainFactory.GetGrain<TotalHashIndexSingleBucketImpl<K, V>>(IndexUtils.GetNextIndexBucketIdInChain(this.AsWeaklyTypedReference()));
             State.NextBucket = NextBucket.AsWeaklyTypedReference();
             return NextBucket;
         }

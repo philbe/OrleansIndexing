@@ -16,9 +16,9 @@ namespace Orleans.Indexing
         private Type _iGrainType;
 
         private bool _isDefinedAsFaultTolerantGrain;
-        private bool _hasAnyCosmosIndex;
-        private bool HasAnyCosmosIndex { get { if (__indexes == null) { InitIndexes(); } return _hasAnyCosmosIndex; } }
-        private bool IsFaultTolerant { get { return _isDefinedAsFaultTolerantGrain && HasAnyCosmosIndex; } }
+        private bool _hasAnyTotalIndex;
+        private bool HasAnyTotalIndex { get { if (__indexes == null) { InitIndexes(); } return _hasAnyTotalIndex; } }
+        private bool IsFaultTolerant { get { return _isDefinedAsFaultTolerantGrain && HasAnyTotalIndex; } }
 
         private IDictionary<string, Tuple<object, object, object>> __indexes;
 
@@ -32,7 +32,7 @@ namespace Orleans.Indexing
             _iGrainType = iGrainType;
             _queueSeqNum = queueSeqNum;
             _isDefinedAsFaultTolerantGrain = isDefinedAsFaultTolerantGrain;
-            _hasAnyCosmosIndex = false;
+            _hasAnyTotalIndex = false;
             __indexes = null;
             __workflowQueue = null;
             _silo = silo;
@@ -196,9 +196,9 @@ namespace Orleans.Indexing
             __indexes = IndexHandler.GetIndexes(_iGrainType);
             foreach(var idxInfo in __indexes.Values)
             {
-                if(idxInfo.Item1 is CosmosIndex)
+                if(idxInfo.Item1 is TotalIndex)
                 {
-                    _hasAnyCosmosIndex = true;
+                    _hasAnyTotalIndex = true;
                     return __indexes;
                 }
             }

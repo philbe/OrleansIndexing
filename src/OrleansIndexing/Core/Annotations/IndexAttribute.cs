@@ -10,7 +10,7 @@ namespace Orleans.Indexing
     /// by third-party libraries. Otherwise, we suggest to use on of the
     /// following descendants of the IndexAttribute based on your requirements:
     ///  - ActiveIndexAttribute
-    ///  - CosmosIndexAttribute
+    ///  - TotalIndexAttribute
     ///  - StorageManagedIndexAttribute
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
