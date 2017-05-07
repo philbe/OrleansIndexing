@@ -160,11 +160,6 @@ namespace Orleans.Indexing
             return TaskDone.Done;
         }
 
-        private IIndexBuilder<V> GetIndexBuilder(IGrainFactory gf)
-        {
-            return gf.GetGrain<IIndexBuilder<V>>(IndexUtils.GetIndexGrainID(typeof(V), IndexUtils.GetIndexNameFromIndexGrain(this)));
-        }
-
         public Task<bool> IsAvailable()
         {
             return Task.FromResult(State.IndexStatus == IndexStatus.Available);

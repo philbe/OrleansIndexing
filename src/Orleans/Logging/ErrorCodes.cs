@@ -1112,10 +1112,7 @@ namespace Orleans
         ServiceFabricBase = Runtime + 4400,
 
         Indexing                                    = Runtime + 4500,
-        IndexingIndexBuilderFailed                  = Indexing + 1,
-        IndexingIndexBuilderFailedToBuildIndex      = Indexing + 2,
-        IndexingIndexBuilderFailedToBuildIndexAgain = Indexing + 3,
-        IndexingIndexIsNotReadyYet                  = Indexing + 4,
+        IndexingIndexIsNotReadyYet                  = Indexing + 1,
     }
 }
 // ReSharper restore InconsistentNaming

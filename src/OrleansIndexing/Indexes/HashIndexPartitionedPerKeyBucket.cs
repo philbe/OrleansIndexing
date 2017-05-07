@@ -119,19 +119,12 @@ namespace Orleans.Indexing
 
             //if the index was still unavailable
             //when we received a delete operation
-            if (fixIndexUnavailableOnDelete)
-            {
-                State.IndexStatus = await GetIndexBuilder().AddTombstone(updatedGrain) ? IndexStatus.Available : State.IndexStatus;
-                if (State.IndexMap.TryGetValue(befImg, out befEntry) && befEntry.Values.Contains(updatedGrain))
-                {
-                    befEntry.Values.Remove(updatedGrain);
-                    var isAvailable = await GetIndexBuilder().AddTombstone(updatedGrain);
-                    if (State.IndexStatus != IndexStatus.Available && isAvailable)
-                    {
-                        State.IndexStatus = IndexStatus.Available;
-                    }
-                }
-            }
+            //if the index was still unavailable
+            //when we received a delete operation
+            //if (fixIndexUnavailableOnDelete)
+            //{
+            //    //create tombstone
+            //}
             return true;
         }
 
@@ -179,11 +172,6 @@ namespace Orleans.Indexing
                 //    Nothing! It's already been done by a previous worker.
                 //}
             }
-        }
-
-        private IIndexBuilder<V> GetIndexBuilder()
-        {
-            return GrainFactory.GetGrain<IIndexBuilder<V>>(this.GetPrimaryKeyString());
         }
         #endregion Reentrant Index Update
 
@@ -242,11 +230,6 @@ namespace Orleans.Indexing
         {
             State.IndexMap.Clear();
             return TaskDone.Done;
-        }
-
-        private IIndexBuilder<V> GetIndexBuilder(IGrainFactory gf)
-        {
-            return gf.GetGrain<IIndexBuilder<V>>(IndexUtils.GetIndexGrainID(typeof(V), IndexUtils.GetIndexNameFromIndexGrain(this)));
         }
 
         public Task<bool> IsAvailable()

@@ -26,7 +26,7 @@ namespace Orleans.Indexing
             //Currently the Total indexes can only be defined in advance.
             //if (State.IndexStatus == IndexStatus.UnderConstruction)
             //{
-            //    var _ = GetIndexBuilder().BuildIndex(indexName, this, IndexUtils.GetIndexUpdateGenerator<V>(GrainFactory, IndexUtils.GetIndexNameFromIndexGrain(this)));
+            //    //Build the index!
             //}
             write_lock = new AsyncLock();
             writeRequestIdGen = 0;
@@ -138,19 +138,10 @@ namespace Orleans.Indexing
             
             //if the index was still unavailable
             //when we received a delete operation
-            if (fixIndexUnavailableOnDelete)
-            {
-                State.IndexStatus = await GetIndexBuilder().AddTombstone(updatedGrain) ? IndexStatus.Available : State.IndexStatus;
-                if (State.IndexMap.TryGetValue(befImg, out befEntry) && befEntry.Values.Contains(updatedGrain))
-                {
-                    befEntry.Values.Remove(updatedGrain);
-                    var isAvailable = await GetIndexBuilder().AddTombstone(updatedGrain);
-                    if (State.IndexStatus != IndexStatus.Available && isAvailable)
-                    {
-                        State.IndexStatus = IndexStatus.Available;
-                    }
-                }
-            }
+            //if (fixIndexUnavailableOnDelete)
+            //{
+            //    //create tombstone
+            //}
         }
 
         /// <summary>
@@ -196,11 +187,6 @@ namespace Orleans.Indexing
                 //    Nothing! It's already been done by a previous worker.
                 //}
             }
-        }
-
-        private IIndexBuilder<V> GetIndexBuilder()
-        {
-            return GrainFactory.GetGrain<IIndexBuilder<V>>(this.GetPrimaryKeyString());
         }
         #endregion Multi-threaded Index Update
 

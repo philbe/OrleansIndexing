@@ -80,7 +80,6 @@
     <Compile Include="Core\IndexableGrainNonFaultTolerant.cs" />
     <Compile Include="Core\FaultTolerance\IndexWorkflowQueueSystemTarget.cs" />
     <Compile Include="Core\IndexOperationType.cs" />
-    <Compile Include="Core\IndexBuilder.cs" />
     <Compile Include="Core\Interfaces\IIndexWorkflowQueueHandler.cs" />
     <Compile Include="Core\MemberUpdateImpl\MemberUpdateTentative.cs" />
     <Compile Include="Core\MemberUpdateImpl\MemberUpdateReverseTentative.cs" />
@@ -91,7 +90,6 @@
     <Compile Include="Core\IndexHandler.cs" />
     <Compile Include="Core\IndexRegistry.cs" />
     <Compile Include="Core\IndexUpdateGenerator.cs" />
-    <Compile Include="Core\Interfaces\IIndexBuilder.cs" />
     <Compile Include="Core\Interfaces\IIndexableGrain.cs" />
     <Compile Include="Core\Interfaces\IIndexUpdateGenerator.cs" />
     <Compile Include="Core\Interfaces\IMemberUpdate.cs" />
