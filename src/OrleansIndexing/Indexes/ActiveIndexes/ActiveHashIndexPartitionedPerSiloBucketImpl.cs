@@ -86,7 +86,7 @@ namespace Orleans.Indexing
             if (!(State.IndexStatus == IndexStatus.Available))
             {
                 var e = new Exception(string.Format("Index is not still available."));
-                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet, "Index is not still available.", e);
+                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet_SystemTargetBucket1, "Index is not still available.", e);
                 throw e;
             }
             HashIndexSingleBucketEntry<V> entry;
@@ -108,7 +108,7 @@ namespace Orleans.Indexing
             if (!(State.IndexStatus == IndexStatus.Available))
             {
                 var e = new Exception(string.Format("Index is not still available."));
-                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet, "Index is not still available.", e);
+                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet_SystemTargetBucket2, "Index is not still available.", e);
                 throw e;
             }
             HashIndexSingleBucketEntry<V> entry;
@@ -127,7 +127,7 @@ namespace Orleans.Indexing
             if (!(State.IndexStatus == IndexStatus.Available))
             {
                 var e = new Exception(string.Format("Index is not still available."));
-                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet, e.Message, e);
+                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet_SystemTargetBucket3, e.Message, e);
                 throw e;
             }
             HashIndexSingleBucketEntry<V> entry;
@@ -140,14 +140,14 @@ namespace Orleans.Indexing
                 else
                 {
                     var e = new Exception(string.Format("There are {0} values for the unique lookup key \"{1}\" does not exist on index \"{2}->{3}\".", entry.Values.Count(), key, _parentIndexName, IndexUtils.GetIndexNameFromIndexGrain(this)));
-                    logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet, e.Message, e);
+                    logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet_SystemTargetBucket4, e.Message, e);
                     throw e;
                 }
             }
             else
             {
                 var e = new Exception(string.Format("The lookup key \"{0}\" does not exist on index \"{1}->{2}\".", key, _parentIndexName, IndexUtils.GetIndexNameFromIndexGrain(this)));
-                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet, e.Message, e);
+                logger.Error((int)ErrorCode.IndexingIndexIsNotReadyYet_SystemTargetBucket5, e.Message, e);
                 throw e;
             }
         }

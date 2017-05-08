@@ -16,5 +16,11 @@ namespace Orleans.Indexing
     [Reentrant]
     public class ActiveHashIndexPartitionedPerKeyBucketImpl<K, V> : HashIndexPartitionedPerKeyBucket<K, V>, ActiveHashIndexPartitionedPerKeyBucket<K, V> where V : class, IIndexableGrain
     {
+        internal override IndexInterface<K, V> GetNextBucket()
+        {
+            var NextBucket = GrainFactory.GetGrain<ActiveHashIndexPartitionedPerKeyBucketImpl<K, V>>(IndexUtils.GetNextIndexBucketIdInChain(this.AsWeaklyTypedReference()));
+            State.NextBucket = NextBucket.AsWeaklyTypedReference();
+            return NextBucket;
+        }
     }
 }

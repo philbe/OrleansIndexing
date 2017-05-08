@@ -38,7 +38,7 @@ namespace Orleans.Indexing
         Task<bool> DirectApplyIndexUpdateBatch(Immutable<IDictionary<IIndexableGrain, IList<IMemberUpdate>>> iUpdates, bool isUnique, IndexMetaData idxMetaData, SiloAddress siloAddress = null);
 
         /// <summary>
-        /// Disposes of the index and removes all the data stored
+        /// Disposes the index and removes all the data stored
         /// for the index. This method is called before removing
         /// the index from index registry
         /// </summary>
