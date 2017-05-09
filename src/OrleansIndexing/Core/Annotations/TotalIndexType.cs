@@ -3,9 +3,9 @@
 namespace Orleans.Indexing
 {
     /// <summary>
-    /// The enumeration of all possible index types in the system
+    /// The enumeration of all possible Total Index types in the system
     /// </summary>
-    public enum IndexType
+    public enum TotalIndexType
     {
         /// <summary>
         /// Represents a hash-index that comprises of a single bucket.
@@ -20,14 +20,6 @@ namespace Orleans.Indexing
         /// Represents a distributed hash-index, and each bucket maintains
         /// a single value for the hash of the key.
         /// </summary>
-        HashIndexPartitionedByKeyHash,
-
-        /// <summary>
-        /// Represents a distributed hash-index, and each bucket is
-        /// maintained by a silo.
-        /// 
-        /// PartitionedBySilo indexes are not supported for Total Indexes.
-        /// </summary>
-        HashIndexPartitionedBySilo
+        HashIndexPartitionedByKeyHash
     }
 }

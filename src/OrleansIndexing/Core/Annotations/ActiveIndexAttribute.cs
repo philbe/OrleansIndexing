@@ -26,7 +26,7 @@ namespace Orleans.Indexing
         /// updated eagerly upon any change in the indexed grains. Otherwise,
         /// the update propagation happens lazily after applying the update
         /// to the grain itself.</param>
-        public ActiveIndexAttribute(bool IsEager) : this(Indexing.IndexType.HashIndexSingleBucket, IsEager)
+        public ActiveIndexAttribute(bool IsEager) : this(Indexing.ActiveIndexType.HashIndexSingleBucket, IsEager)
         {
         }
 
@@ -42,17 +42,17 @@ namespace Orleans.Indexing
         /// that should be stored in each bucket of a distributed index. This
         /// option is only considered if the index is a distributed index.
         /// Use -1 to declare no limit.</param>
-        public ActiveIndexAttribute(IndexType type, bool IsEager = false, int MaxEntriesPerBucket = -1)
+        public ActiveIndexAttribute(ActiveIndexType type, bool IsEager = false, int MaxEntriesPerBucket = -1)
         {
             switch (type)
             {
-                case Indexing.IndexType.HashIndexSingleBucket:
+                case Indexing.ActiveIndexType.HashIndexSingleBucket:
                     IndexType = typeof(ActiveHashIndexSingleBucket<,>);
                     break;
-                case Indexing.IndexType.HashIndexPartitionedByKeyHash:
+                case Indexing.ActiveIndexType.HashIndexPartitionedByKeyHash:
                     IndexType = typeof(ActiveHashIndexPartitionedPerKey<,>);
                     break;
-                case Indexing.IndexType.HashIndexPartitionedBySilo:
+                case Indexing.ActiveIndexType.HashIndexPartitionedBySilo:
                     IndexType = typeof(ActiveHashIndexPartitionedPerSilo<,>);
                     break;
                 default:

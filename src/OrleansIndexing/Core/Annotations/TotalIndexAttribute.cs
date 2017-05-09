@@ -27,7 +27,7 @@ namespace Orleans.Indexing
         /// updated eagerly upon any change in the indexed grains. Otherwise,
         /// the update propagation happens lazily after applying the update
         /// to the grain itself.</param>
-        public TotalIndexAttribute(bool IsEager) : this(Indexing.IndexType.HashIndexSingleBucket, IsEager, false)
+        public TotalIndexAttribute(bool IsEager) : this(Indexing.TotalIndexType.HashIndexSingleBucket, IsEager, false)
         {
         }
 
@@ -45,19 +45,16 @@ namespace Orleans.Indexing
         /// that should be stored in each bucket of a distributed index. This
         /// option is only considered if the index is a distributed index.
         /// Use -1 to declare no limit.</param>
-        public TotalIndexAttribute(IndexType type, bool IsEager = false, bool IsUnique = false, int MaxEntriesPerBucket = -1)
+        public TotalIndexAttribute(TotalIndexType type, bool IsEager = false, bool IsUnique = false, int MaxEntriesPerBucket = -1)
         {
             switch (type)
             {
-                case Indexing.IndexType.HashIndexSingleBucket:
+                case Indexing.TotalIndexType.HashIndexSingleBucket:
                     IndexType = typeof(TotalHashIndexSingleBucket<,>);
                     break;
-                case Indexing.IndexType.HashIndexPartitionedByKeyHash:
+                case Indexing.TotalIndexType.HashIndexPartitionedByKeyHash:
                     IndexType = typeof(TotalHashIndexPartitionedPerKey<,>);
                     break;
-                //Total indexes partitioned by silo are not supported
-                case Indexing.IndexType.HashIndexPartitionedBySilo:
-                    throw new Exception("PartitionedBySilo indexes are not supported for Total Indexes.");
                 default:
                     IndexType = typeof(TotalHashIndexSingleBucket<,>);
                     break;

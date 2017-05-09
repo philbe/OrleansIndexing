@@ -62,9 +62,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Annotations\TotalIndexType.cs" />
     <Compile Include="Core\Annotations\StorageManagedIndexAttribute.cs" />
     <Compile Include="Core\Annotations\TotalIndexAttribute.cs" />
-    <Compile Include="Core\Annotations\IndexType.cs" />
+    <Compile Include="Core\Annotations\ActiveIndexType.cs" />
     <Compile Include="Core\Annotations\ActiveIndexAttribute.cs" />
     <Compile Include="Core\Annotations\IndexAttribute.cs" />
     <Compile Include="Core\FaultTolerance\IndexWorkflowQueueBase.cs" />
