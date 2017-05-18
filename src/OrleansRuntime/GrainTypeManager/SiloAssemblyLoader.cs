@@ -140,7 +140,7 @@ namespace Orleans.Runtime
         private static PropertyInfo isEagerProperty;
         private static PropertyInfo isUniqueProperty;
         private static PropertyInfo maxEntriesPerBucketProperty;
-        private static Type initializedIndexType;
+        private static Type totalIndexType;
 
         /// <summary>
         /// This method crawls the assemblies and looks for the index
@@ -184,7 +184,7 @@ namespace Orleans.Runtime
                 isEagerProperty = indexAttributeType.GetProperty("IsEager");
                 isUniqueProperty = indexAttributeType.GetProperty("IsUnique");
                 maxEntriesPerBucketProperty = indexAttributeType.GetProperty("MaxEntriesPerBucket");
-                initializedIndexType = Type.GetType("Orleans.Indexing.InitializedIndex" + AssemblySeparator + OrleansIndexingAssembly);
+                totalIndexType = Type.GetType("Orleans.Indexing.TotalIndex" + AssemblySeparator + OrleansIndexingAssembly);
             }
             catch
             {
@@ -299,7 +299,7 @@ namespace Orleans.Runtime
                 {
                     bool isEager = (bool)isEagerProperty.GetValue(indexAttr);
                     Type indexType = (Type)indexTypeProperty.GetValue(indexAttr);
-                    bool isTotalIndex = initializedIndexType.IsAssignableFrom(indexType);
+                    bool isTotalIndex = totalIndexType.IsAssignableFrom(indexType);
 
                     //Total Index cannot be configured as being lazy
                     if (isTotalIndex && isEager)
